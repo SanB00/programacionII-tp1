@@ -1,12 +1,15 @@
 #ifndef SOCIO_H
 #define SOCIO_H
-
+#include"fecha.h"
 class Socio {
 private:
     int idSocio;
     char nombre[20];
     char apellido[20];
     char telefono[15];
+    char direccion[50];
+    char correo[40];
+    Fecha fechaalta;
     bool eliminado;
 public:
     void cargar();
@@ -19,6 +22,7 @@ public:
     bool guardar();
     bool leer(int pos);
     bool modificar(int pos);
+    bool existeId(int id);
 };
 
 #endif // SOCIO_H

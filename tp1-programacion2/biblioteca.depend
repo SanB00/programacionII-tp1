@@ -1,0 +1,93 @@
+# depslib dependency file v1.0
+1759423350 source:c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\fecha.cpp
+	<iostream>
+	"Fecha.h"
+
+1759423350 c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\fecha.h
+
+1759425635 source:c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\funciones.cpp
+	<iostream>
+	"Libros.h"
+	"Socio.h"
+	"Prestamo.h"
+
+1759425487 c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\libros.h
+	"fecha.h"
+
+1759426734 c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\socio.h
+	"fecha.h"
+
+1759423350 c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\prestamo.h
+	"Fecha.h"
+
+1759423350 source:c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\main.cpp
+	<iostream>
+	"funciones.h"
+
+1759423350 c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\funciones.h
+
+1759423350 source:c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\prestamo.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Prestamo.h"
+
+1759423350 source:c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\socio.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Socio.h"
+
+1759425733 source:c:\users\biblioteca-02.sau02-9ffd\desktop\biblioteca\biblioteca\libros.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<limits>
+	"Libros.h"
+
+1759857913 source:c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\fecha.cpp
+	<iostream>
+	"Fecha.h"
+
+1759857913 c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\fecha.h
+
+1759857913 source:c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\funciones.cpp
+	<iostream>
+	"Libros.h"
+	"Socio.h"
+	"Prestamo.h"
+
+1759859483 c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\libros.h
+	"fecha.h"
+
+1759859836 c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\socio.h
+	"fecha.h"
+
+1759857913 c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\prestamo.h
+	"Fecha.h"
+
+1759857913 source:c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\main.cpp
+	<iostream>
+	"funciones.h"
+
+1759857913 c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\funciones.h
+
+1759857913 source:c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\prestamo.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Prestamo.h"
+
+1759857913 source:c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\socio.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Socio.h"
+
+1759859433 source:c:\users\franco\downloads\biblioteca\biblioteca\biblioteca\libros.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<limits>
+	"Libros.h"
+

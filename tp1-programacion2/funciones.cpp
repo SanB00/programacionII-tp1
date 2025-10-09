@@ -13,7 +13,7 @@ void menuLibros() {
         if(op == 1){
             Libros obj;
             obj.cargar();
-          //  obj.guardar();
+            obj.guardar();
         }
         else if(op == 2){
             Libros obj;

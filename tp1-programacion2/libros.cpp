@@ -3,27 +3,33 @@
 #include <cstring>
 #include <limits>
 #include "Libros.h"
+
 using namespace std;
 
 void Libros::cargar() {
     bool entro = false;
-while (!entro) {
+    while (!entro) {
         cout << "ID Libro: ";
         cin >> idLibro;
 
         if (cin.fail()) {
-            cin.clear();  // limpia el estado de error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia todo el buffer
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Entrada invalida. Intenta de nuevo.\n";
+        } else if (existeId(idLibro)) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Ese ID ya existe. Ingrese uno diferente.\n";
         } else {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia todo el buffer
-            entro = true;  // válida
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            entro = true;
             cout << "Se ingreso correctamente.\n";
         }
     }
+
     cout << "Titulo: "; cin.getline(titulo, 50);
     cout << "Autor: "; cin.getline(autor, 30);
     cout << "Editorial: "; cin.getline(editorial, 30);
+    cout << "Fecha de alta del libro: "; fechaalta.cargar();
     eliminado = false;
 }
 
@@ -32,7 +38,8 @@ void Libros::mostrar() const {
         cout << "ID: " << idLibro
              << " | Titulo: " << titulo
              << " | Autor: " << autor
-             << " | Editorial: " << editorial << endl;
+             << " | Editorial: " << editorial
+             << " | Fecha de alta "; fechaalta.mostrar();
     }
 }
 
@@ -67,4 +74,19 @@ bool Libros::modificar(int pos) {
     bool ok = fwrite(this, sizeof(Libros), 1, p);
     fclose(p);
     return ok;
+}
+bool Libros::existeId(int id) {
+    Libros libro;
+    FILE *p = fopen("libros.dat", "rb");
+    if (p == NULL) return false;
+
+    while (fread(&libro, sizeof(Libros), 1, p)) {
+        if (!libro.getEliminado() && libro.getIdLibro() == id) {
+            fclose(p);
+            return true;
+        }
+    }
+
+    fclose(p);
+    return false;
 }

@@ -14,7 +14,11 @@ void Socio::cargar() {
             cin.clear();  // limpia el estado de error
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia todo el buffer
             cout << "Entrada invalida. Intenta de nuevo.\n";
-        } else {
+        }
+        else if (existeId(idSocio)) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Ese ID ya existe. Ingrese uno diferente.\n";
+        }else {
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia todo el buffer
             entro = true;  // válida
             cout << "Se ingreso correctamente.\n";
@@ -27,6 +31,12 @@ void Socio::cargar() {
     cin.getline(apellido, 20);
     cout << "Telefono: ";
     cin.getline(telefono, 15);
+    cout<<"direccion: ";
+    cin.getline (direccion,50);
+    cout<<"correo electronico: ";
+    cin.getline(correo,40);
+    cout<<"fecha de alta del socio: "<<endl;
+    fechaalta.cargar();
     eliminado = false;
 }
 
@@ -34,7 +44,12 @@ void Socio::mostrar() const {
     if (!eliminado) {
         cout << "ID: " << idSocio
              << " | " << nombre << " " << apellido
-             << " | Tel: " << telefono << endl;
+             << " | Tel: " << telefono
+             << " | direccion: " << direccion
+             << " | Correo: " << correo
+             << " | Fecha alta: ";fechaalta.mostrar();
+             cout<<endl;
+
     }
 }
 
@@ -69,4 +84,19 @@ bool Socio::modificar(int pos) {
     bool ok = fwrite(this, sizeof(Socio), 1, p);
     fclose(p);
     return ok;
+}
+bool Socio::existeId(int id) {
+    Socio socios;
+    FILE *p = fopen("socios.dat", "rb");
+    if (p == NULL) return false;
+
+    while (fread(&socios, sizeof(socios), 1, p)) {
+        if (!socios.getEliminado() && socios.getIdSocio() == id) {
+            fclose(p);
+            return true;
+        }
+    }
+
+    fclose(p);
+    return false;
 }
