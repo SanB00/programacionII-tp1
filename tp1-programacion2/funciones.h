@@ -1,8 +1,8 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
-void menuLibros();
-void menuSocios();
+void mostrarMenuLibros();
+void mostrarMenuSocios();
 void menuPrestamos();
 
 #endif // FUNCIONES_H
