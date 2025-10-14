@@ -24,7 +24,13 @@ int main()
             mostrarMenuSocios();
             break;
         case 3:
-            menuPrestamos();
+            mostrarMenuPrestamos();
+            break;
+        case 0:
+            cout << "Saliendo del programa...\n";
+            break;
+        default:
+            cout << "Opcion invalida. Intente nuevamente.\n";
             break;
         }
     } while (opcion != 0);

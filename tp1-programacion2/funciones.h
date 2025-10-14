@@ -3,6 +3,6 @@
 
 void mostrarMenuLibros();
 void mostrarMenuSocios();
-void menuPrestamos();
+void mostrarMenuPrestamos();
 
 #endif // FUNCIONES_H
