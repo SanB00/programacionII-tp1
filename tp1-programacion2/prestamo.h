@@ -13,6 +13,7 @@ private:
 public:
     void cargar();
     void mostrar() const;
+    void buscar (int id);
 
     int getIdPrestamo() const;
     int getIdSocio() const;
