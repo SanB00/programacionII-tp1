@@ -129,7 +129,7 @@ void Libros::buscarPorAutor() {
 
     cout << "\n=== RESULTADOS DE LA BUSQUEDA ===\n";
     while (fread(&reg, sizeof(Libros), 1, p) == 1) {
-        // Coincidencia parcial (si querés exacta, usar strcmp)
+        // Coincidencia parcial (si querï¿½s exacta, usar strcmp)
         if (strstr(reg.getAutor(), autorBuscado) != NULL) {
             reg.mostrar();
             encontrado = true;

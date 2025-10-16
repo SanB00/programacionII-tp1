@@ -16,8 +16,9 @@ int main() {
             case 1: menuLibros(); break;
             case 2: menuSocios(); break;
             case 3: menuPrestamos(); break;
-        }
+            default: cout<<"Opcion invalida"<<endl; break;
+            case 0: cout<<"Saliendo del programa..."<<endl; break;
+            }
     } while(opcion != 0);
     return 0;
 }
-
