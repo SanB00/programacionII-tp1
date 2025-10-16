@@ -91,3 +91,138 @@
 	<limits>
 	"Libros.h"
 
+1760455082 source:c:\users\pc-20\desktop\biblioteca\biblioteca\fecha.cpp
+	<iostream>
+	"Fecha.h"
+
+1760455082 c:\users\pc-20\desktop\biblioteca\biblioteca\fecha.h
+
+1760456463 source:c:\users\pc-20\desktop\biblioteca\biblioteca\libros.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<limits>
+	"Libros.h"
+
+1760455557 c:\users\pc-20\desktop\biblioteca\biblioteca\libros.h
+	"fecha.h"
+
+1760456219 source:c:\users\pc-20\desktop\biblioteca\biblioteca\main.cpp
+	<iostream>
+	"funciones.h"
+
+1760455082 c:\users\pc-20\desktop\biblioteca\biblioteca\funciones.h
+
+1760455083 source:c:\users\pc-20\desktop\biblioteca\biblioteca\prestamo.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Prestamo.h"
+
+1760455083 c:\users\pc-20\desktop\biblioteca\biblioteca\prestamo.h
+	"Fecha.h"
+
+1760455189 source:c:\users\pc-20\desktop\biblioteca\biblioteca\socio.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Socio.h"
+
+1760455212 c:\users\pc-20\desktop\biblioteca\biblioteca\socio.h
+	"fecha.h"
+
+1760455498 source:c:\users\pc-20\desktop\biblioteca\biblioteca\funciones.cpp
+	<iostream>
+	"Libros.h"
+	"Socio.h"
+	"Prestamo.h"
+
+1760456226 source:c:\users\pc-20\desktop\biblioteca\biblioteca\autor.cpp
+	<iostream>
+
+1760474228 source:c:\users\biblioteca 03\desktop\biblioteca\autor.cpp
+	<iostream>
+
+1760473084 source:c:\users\biblioteca 03\desktop\biblioteca\fecha.cpp
+	<iostream>
+	"Fecha.h"
+
+1760473084 c:\users\biblioteca 03\desktop\biblioteca\fecha.h
+
+1760466583 source:c:\users\biblioteca 03\desktop\biblioteca\funciones.cpp
+	<iostream>
+	"Libros.h"
+	"Socio.h"
+	"Prestamo.h"
+
+1760465354 c:\users\biblioteca 03\desktop\biblioteca\libros.h
+	"fecha.h"
+
+1760473214 c:\users\biblioteca 03\desktop\biblioteca\socio.h
+	"fecha.h"
+
+1760462890 c:\users\biblioteca 03\desktop\biblioteca\prestamo.h
+	"Fecha.h"
+
+1760467611 source:c:\users\biblioteca 03\desktop\biblioteca\libros.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<limits>
+	"Libros.h"
+
+1760474220 source:c:\users\biblioteca 03\desktop\biblioteca\main.cpp
+	<iostream>
+	"funciones.h"
+
+1760473084 c:\users\biblioteca 03\desktop\biblioteca\funciones.h
+
+1760464145 source:c:\users\biblioteca 03\desktop\biblioteca\prestamo.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Prestamo.h"
+
+1760464813 source:c:\users\biblioteca 03\desktop\biblioteca\socio.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Socio.h"
+
+1760467700 source:c:\users\franco\desktop\biblioteca 3\libros.cpp
+	<iostream>
+	<cstdio>
+	<cstring>
+	<limits>
+	"Libros.h"
+
+1760465356 c:\users\franco\desktop\biblioteca 3\libros.h
+	"fecha.h"
+
+1760473084 c:\users\franco\desktop\biblioteca 3\fecha.h
+
+1760464146 source:c:\users\franco\desktop\biblioteca 3\prestamo.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Prestamo.h"
+
+1760462892 c:\users\franco\desktop\biblioteca 3\prestamo.h
+	"Fecha.h"
+
+1760464814 source:c:\users\franco\desktop\biblioteca 3\socio.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"Socio.h"
+
+1760473214 c:\users\franco\desktop\biblioteca 3\socio.h
+	"fecha.h"
+
+1760468943 source:c:\users\franco\desktop\biblioteca 3\funciones.cpp
+	<iostream>
+	<limits>
+	"Libros.h"
+	"Socio.h"
+	"Prestamo.h"
+

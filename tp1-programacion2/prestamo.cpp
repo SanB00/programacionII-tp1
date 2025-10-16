@@ -4,33 +4,34 @@
 #include "Prestamo.h"
 using namespace std;
 
-void Prestamo::cargar()
-{
+void Prestamo::cargar() {
 
     bool entro = false;
-    while (!entro)
-    {
+    while (!entro) {
         cout << "ID Prestamo: ";
         cin >> idPrestamo;
-        // Verificar que el ID no exista ya en el archivo, si existe, pedir otro
-        // que no sea negativo, mostrar error si es negativo o si ya existe
-        if (idPrestamo < 0)
+        FILE *p = fopen("prestamos.dat", "rb");
+        if (p == NULL)
         {
-            cout << "Error: El ID no puede ser negativo. Intente nuevamente.\n";
-            continue;
+            entro = true;
+            break;
         }
-        Prestamo obj;
-        int pos = 0;
-        entro = true;
-        while (obj.leer(pos++))
+        Prestamo prestamo;
+        bool existe = false;
+        while (fread(&prestamo, sizeof(Prestamo), 1, p))
         {
-            if (obj.getIdPrestamo() == idPrestamo)
+            if (prestamo.getIdPrestamo() == idPrestamo)
             {
-                cout << "Error: El ID ya existe. Intente con otro.\n";
-                entro = false;
+                existe = true;
+                cout << "El ID ya existe. Ingrese otro ID.\n";
                 break;
             }
         }
+        if (!existe)
+            entro = true;
+        fclose(p);
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     cout << "ID Socio: ";
     cin >> idSocio;
@@ -42,15 +43,12 @@ void Prestamo::cargar()
     fechaDevolucion.cargar();
 }
 
-void Prestamo::mostrar() const
-{
+void Prestamo::mostrar() const {
     cout << "Prestamo ID: " << idPrestamo
          << " | Socio: " << idSocio
          << " | Libro: " << idLibro
-         << " | Prestado: ";
-    fechaPrestamo.mostrar();
-    cout << " | Devuelto: ";
-    fechaDevolucion.mostrar();
+         << " | Prestado: "; fechaPrestamo.mostrar();
+    cout << " | Devuelto: "; fechaDevolucion.mostrar();
     cout << endl;
 }
 
@@ -59,14 +57,34 @@ int Prestamo::getIdSocio() const { return idSocio; }
 int Prestamo::getIdLibro() const { return idLibro; }
 
 /// Archivo
-bool Prestamo::guardar()
-{
+bool Prestamo::guardar() {
     FILE *p = fopen("prestamos.dat", "ab");
     if (p == NULL)
         return false;
     fwrite(this, sizeof(Prestamo), 1, p);
     fclose(p);
     return true;
+}
+
+void Prestamo::buscar(int id)
+{
+    bool comprobado = false;
+    Prestamo prestamo;
+    FILE *p = fopen("prestamos.dat", "rb");
+    while (fread(&prestamo, sizeof(prestamo), 1, p))
+    {
+        if (prestamo.getIdPrestamo() == id)
+        {
+            prestamo.mostrar();
+            comprobado = true;
+        }
+    }
+
+    if (comprobado == false)
+    {
+        cout << "no existe el id:" << id << endl;
+    }
+    fclose(p);
 }
 
 bool Prestamo::leer(int pos)

@@ -1,59 +1,45 @@
 #include <iostream>
-#include "libros.h"
-#include "socio.h"
-#include "prestamo.h"
+#include <limits>
+#include "Libros.h"
+#include "Socio.h"
+#include "Prestamo.h"
 using namespace std;
-void mostrarMenuLibros()
-{
+
+void menuLibros() {
     int opcionSeleccionada;
-    do
-    {
+    do {
         cout << "\n--- MENU LIBROS ---\n";
-        cout << "1. Alta\n2. Listar\n3. Modificar\n4. Baja Logica\n0. Volver\nOpcion: ";
+        cout << "1. Alta\n";
+        cout << "2. Listar\n";
+        cout << "3. Baja Logica\n";
+        cout << "4. Buscar por ID\n";
+        cout << "6. Buscar por Autor\n";
+        cout << "0. Volver\n";
+        cout << "Opcion: ";
         cin >> opcionSeleccionada;
-        cin.ignore();
-        switch (opcionSeleccionada)
-        {
-        case 1:
-        {
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entrada invalida. Intenta de nuevo.\n";
+        }
+        switch (opcionSeleccionada) {
+            case 1: {
             Libros obj;
             obj.cargar();
             obj.guardar();
             break;
         }
-        case 2:
-        {
+
+            case 2: {
             Libros obj;
             int pos = 0;
-            while (obj.leer(pos++))
-            {
+                while (obj.leer(pos++)) {
                 obj.mostrar();
             }
             break;
         }
-        case 3:
-        {
-            int id;
-            cout << "Ingrese ID libro a modificar: ";
-            cin >> id;
-            cin.ignore();
-            Libros obj;
-            int pos = 0;
-            while (obj.leer(pos))
-            {
-                if (obj.getIdLibro() == id && !obj.getEliminado())
-                {
-                    obj.cargar();
-                    obj.modificar(pos);
-                    cout << "Libro modificado.\n";
-                    break;
-                }
-                pos++;
-            }
-            break;
-        }
-        case 4:
-        {
+        case 3: {
             int id;
             cout << "Ingrese ID libro a eliminar: ";
             cin >> id;
@@ -73,28 +59,54 @@ void mostrarMenuLibros()
             }
             break;
         }
+
+            case 4: {
+                int id;
+                cout << "Ingrese ID del libro a buscar: ";
+                cin >> id;
+                Libros obj;
+                obj.buscar(id);
+                break;
+            }
+
+            case 6: {
+                Libros obj;
+                obj.buscarPorAutor();
+                break;
+            }
+
         case 0:
-            // Volver al menu principal
+                cout << "Volviendo al menu principal...\n";
             break;
+
         default:
             cout << "Opcion invalida. Intente nuevamente.\n";
+        break;
         }
+
     } while (opcionSeleccionada != 0);
 }
 
-void mostrarMenuSocios()
-{
-    int opcion;
-    do
-    {
+
+void menuSocios() {
+    int op;
+    do {
         cout << "\n--- MENU SOCIOS ---\n";
-        cout << "1. Alta\n2. Listar\n3. Modificar\n4. Baja Logica\n0. Volver\nOpcion: ";
-        cin >> opcion;
-        cin.ignore();
-        switch (opcion)
-        {
-        case 1:
-        {
+        cout << "1. Alta\n";
+        cout << "2. Listar\n";
+        cout << "3. Baja Logica\n";
+        cout << "4. Buscar por ID\n";
+        cout << "0. Volver\n";
+        cout << "Opcion: ";
+        cin >> op;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entrada invalida. Intenta de nuevo.\n";
+        }
+
+        switch (op) {
+            case 1: {
             Socio obj;
             obj.cargar();
             obj.guardar();
@@ -110,39 +122,16 @@ void mostrarMenuSocios()
             }
             break;
         }
-        case 3:
-        {
-            int id;
-            cout << "Ingrese ID socio a modificar: ";
-            cin >> id;
-            cin.ignore();
-            Socio obj;
-            int pos = 0;
-            while (obj.leer(pos))
-            {
-                if (obj.getIdSocio() == id && !obj.getEliminado())
-                {
-                    obj.cargar();
-                    obj.modificar(pos);
-                    cout << "Socio modificado.\n";
-                    break;
-                }
-                pos++;
-            }
-            break;
-        }
-        case 4:
-        {
+
+            case 3: {
             int id;
             cout << "Ingrese ID socio a eliminar: ";
             cin >> id;
             cin.ignore();
             Socio obj;
             int pos = 0;
-            while (obj.leer(pos))
-            {
-                if (obj.getIdSocio() == id && !obj.getEliminado())
-                {
+                while (obj.leer(pos)) {
+                    if (obj.getIdSocio() == id && !obj.getEliminado()) {
                     obj.setEliminado(true);
                     obj.modificar(pos);
                     cout << "Socio dado de baja.\n";
@@ -152,51 +141,77 @@ void mostrarMenuSocios()
             }
             break;
         }
+
+            case 4: {
+                int id;
+                cout << "Ingrese ID del socio a buscar: ";
+                cin >> id;
+                Socio obj;
+                obj.buscar(id);
+                break;
+            }
+
         case 0:
-            // Volver al menu principal
+                cout << "Volviendo al menu principal...\n";
             break;
         default:
             cout << "Opcion invalida. Intente nuevamente.\n";
         }
-    } while (opcion != 0);
+
+    } while (op != 0);
 }
 
-void mostrarMenuPrestamos()
-{
-    int opcion;
-
-    do
-    {
+void menuPrestamos() {
+    int op;
+    bool comprobado = false;
+    do {
         cout << "\n--- MENU PRESTAMOS ---\n";
-        cout << "1. Alta\n2. Listar\n0. Volver\nOpcion: ";
-        cin >> opcion;
-        cin.ignore();
+        cout << "1. Alta\n";
+        cout << "2. Listar\n";
+        cout << "3. buscar \n";
+        cout << "0. Volver\n";
+        cout << "Opcion: ";
+        cin >> op;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entrada invalida. Intenta de nuevo.\n";
+        }
 
-        switch (opcion)
-        {
-        case 1:
-        {
+        switch (op) {
+            case 1: {
             Prestamo obj;
             obj.cargar();
             obj.guardar();
             break;
         }
 
-        case 2:
-        {
+            case 2: {
             Prestamo obj;
             int pos = 0;
-            while (obj.leer(pos++))
-            {
+                while (obj.leer(pos++)) {
                 obj.mostrar();
             }
             break;
         }
+
+            case 3:{
+                int id;
+            Prestamo obj;
+            cout<<"ingrese id del prestamo"<<endl;
+            cin>>id;
+            obj.buscar(id);
+            }
+
         case 0:
-            // Volver al menu principal
+                comprobado = true;
+                cout << "Volviendo al menu...\n";
             break;
+
         default:
             cout << "Opcion invalida. Intente nuevamente.\n";
+                break;
         }
-    } while (opcion != 0);
+
+    } while (comprobado != false);
 }

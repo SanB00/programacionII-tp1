@@ -15,6 +15,9 @@ public:
     int getIdLibro() const;
     bool getEliminado() const;
     void setEliminado(bool e);
+    void buscar (int id);
+    void buscarPorAutor();
+    const char* getAutor() const { return autor; }
 
     /// Manejo de archivo
     bool guardar();

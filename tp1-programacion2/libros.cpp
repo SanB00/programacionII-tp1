@@ -40,6 +40,7 @@ void Libros::mostrar() const {
              << " | Autor: " << autor
              << " | Editorial: " << editorial
              << " | Fecha de alta "; fechaalta.mostrar();
+             cout<<endl;
     }
 }
 
@@ -48,6 +49,23 @@ int Libros::getIdLibro() const { return idLibro; }
 bool Libros::getEliminado() const { return eliminado; }
 
 void Libros::setEliminado(bool e) { eliminado = e; }
+
+void Libros::buscar(int id){
+    bool comprobado = false;
+    Libros libro;
+    FILE *p =fopen("libros.dat","rb");
+    while (fread(&libro,sizeof(libro),1,p)){
+        if(libro.getIdLibro()==id){
+            libro.mostrar();
+            comprobado=true;;
+        }
+    }
+
+     if (comprobado==false){
+        cout<<"no existe id"<<endl;
+    }
+    fclose(p);
+}
 
 /// Archivo
 bool Libros::guardar() {
@@ -89,4 +107,38 @@ bool Libros::existeId(int id) {
 
     fclose(p);
     return false;
+}
+
+
+
+void Libros::buscarPorAutor() {
+    char autorBuscado[30];
+    cout << "Ingrese el nombre del autor a buscar: ";
+
+    cin.getline(autorBuscado, 30);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    FILE *p = fopen("libros.dat", "rb");
+    if (p == NULL) {
+        cout << "No se pudo abrir el archivo de libros.\n";
+        return;
+    }
+
+    Libros reg;
+    bool encontrado = false;
+
+    cout << "\n=== RESULTADOS DE LA BUSQUEDA ===\n";
+    while (fread(&reg, sizeof(Libros), 1, p) == 1) {
+        // Coincidencia parcial (si quer�s exacta, usar strcmp)
+        if (strstr(reg.getAutor(), autorBuscado) != NULL) {
+            reg.mostrar();
+            encontrado = true;
+        }
+    }
+
+    if (!encontrado) {
+        cout << "\nNo se encontraron libros de ese autor.\n";
+    }
+
+    fclose(p);
 }

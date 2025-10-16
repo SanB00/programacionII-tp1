@@ -17,6 +17,7 @@ public:
     int getIdSocio() const;
     bool getEliminado() const;
     void setEliminado(bool e);
+    void buscar(int id);
 
     /// Manejo de archivo
     bool guardar();
