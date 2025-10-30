@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <limits>
-#include "Socio.h"
+#include "socio.h"
 using namespace std;
 
 void Socio::cargar() {
@@ -20,7 +20,7 @@ void Socio::cargar() {
             cout << "Ese ID ya existe. Ingrese uno diferente.\n";
         }else {
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia todo el buffer
-            entro = true;  // válida
+            entro = true;  // vï¿½lida
             cout << "Se ingreso correctamente.\n";
         }
     }

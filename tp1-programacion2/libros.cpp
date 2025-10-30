@@ -2,35 +2,31 @@
 #include <cstdio>
 #include <cstring>
 #include <limits>
-#include "Libros.h"
+#include "libros.h"
 
 using namespace std;
 
 void Libros::cargar() {
-    bool entro = false;
-    while (!entro) {
-        cout << "ID Libro: ";
-        cin >> idLibro;
-
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Entrada invalida. Intenta de nuevo.\n";
-        } else if (existeId(idLibro)) {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Ese ID ya existe. Ingrese uno diferente.\n";
-        } else {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            entro = true;
-            cout << "Se ingreso correctamente.\n";
-        }
-    }
-
-    cout << "Titulo: "; cin.getline(titulo, 50);
-    cout << "Autor: "; cin.getline(autor, 30);
-    cout << "Editorial: "; cin.getline(editorial, 30);
-    cout << "Fecha de alta del libro: "; fechaalta.cargar();
+    /// el sistema crea un id automaticamente con static 
+    static int ultimoId = 0;
+    ultimoId++;
+    idLibro = ultimoId;
+    cout << "Ingrese el titulo del libro: ";
+    cin.ignore();
+    cin.getline(titulo, 50);
+    cout << "Ingrese el autor del libro: ";
+    cin.getline(autor, 30);
+    cout << "Ingrese la editorial del libro: ";
+    cin.getline(editorial, 30);
+    fechaalta.cargar();
     eliminado = false;
+    ///verificar si el id ya existe en el archivo
+    while (existeId(idLibro)) {
+        ultimoId++;
+        idLibro = ultimoId;
+    }   
+    
+    
 }
 
 void Libros::mostrar() const {
@@ -108,15 +104,16 @@ bool Libros::existeId(int id) {
     fclose(p);
     return false;
 }
-
-
-
+///
+///
+///
 void Libros::buscarPorAutor() {
     char autorBuscado[30];
     cout << "Ingrese el nombre del autor a buscar: ";
 
+    cin.ignore();
     cin.getline(autorBuscado, 30);
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    
 
     FILE *p = fopen("libros.dat", "rb");
     if (p == NULL) {
@@ -129,7 +126,6 @@ void Libros::buscarPorAutor() {
 
     cout << "\n=== RESULTADOS DE LA BUSQUEDA ===\n";
     while (fread(&reg, sizeof(Libros), 1, p) == 1) {
-        // Coincidencia parcial (si quer�s exacta, usar strcmp)
         if (strstr(reg.getAutor(), autorBuscado) != NULL) {
             reg.mostrar();
             encontrado = true;
@@ -138,6 +134,81 @@ void Libros::buscarPorAutor() {
 
     if (!encontrado) {
         cout << "\nNo se encontraron libros de ese autor.\n";
+    }
+
+    fclose(p);
+}
+///
+///
+/// 
+void Libros::buscarPorEditorial()
+{
+    char editorialBuscada[30];
+    cout << "Ingrese el nombre de la editorial a buscar: ";
+    cin.ignore(); // limpiar buffer antes de getline
+    cin.getline(editorialBuscada, 30);
+
+    FILE *p = fopen("libros.dat", "rb");
+    if (p == NULL)
+    {
+        cout << "No se pudo abrir el archivo de libros.\n";
+        return;
+    }
+
+    Libros reg;
+    bool encontrado = false;
+
+    cout << "\n=== RESULTADOS DE LA BUSQUEDA ===\n";
+    while (fread(&reg, sizeof(Libros), 1, p) == 1)
+    {
+        // compara directamente con el campo 'editorial'
+        if (strstr(reg.editorial, editorialBuscada) != NULL)
+        {
+            reg.mostrar();
+            encontrado = true;
+        }
+    }
+
+    if (!encontrado)
+    {
+        cout << "\nNo se encontraron libros de esa editorial.\n";
+    }
+
+    fclose(p);
+}
+///
+///
+///
+void Libros::buscarPorTitulo()
+{
+    char tituloBuscado[50];
+    cout << "Ingrese el titulo del libro a buscar: ";
+    cin.ignore(); 
+    cin.getline(tituloBuscado, 50);
+
+    FILE *p = fopen("libros.dat", "rb");
+    if (p == NULL)
+    {
+        cout << "No se pudo abrir el archivo de libros.\n";
+        return;
+    }
+
+    Libros reg;
+    bool encontrado = false;
+
+    cout << "\n=== RESULTADOS DE LA BUSQUEDA ===\n";
+    while (fread(&reg, sizeof(Libros), 1, p) == 1)
+    {
+        if (strstr(reg.titulo, tituloBuscado) != NULL)
+        {
+            reg.mostrar();
+            encontrado = true;
+        }
+    }
+
+    if (!encontrado)
+    {
+        cout << "\nNo se encontraron libros con ese titulo.\n";
     }
 
     fclose(p);

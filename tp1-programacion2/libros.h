@@ -17,13 +17,27 @@ public:
     void setEliminado(bool e);
     void buscar (int id);
     void buscarPorAutor();
-    const char* getAutor() const { return autor; }
+    void buscarPorEditorial();
+    void buscarPorTitulo();
+    const char* getAutor() const 
+    { 
+        return autor; 
+    }
+    const char* getEditorial() const
+    {
+        return editorial;
+    }
+    const char* getTitulo() const
+    {
+        return titulo;
+    }
 
     /// Manejo de archivo
     bool guardar();
     bool leer(int pos);
     bool modificar(int pos);
     bool existeId(int id);
+    
 };
 
 #endif // LIBROS_H

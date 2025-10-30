@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Fecha.h"
+#include "fecha.h"
 using namespace std;
 
 void Fecha::cargar() {
