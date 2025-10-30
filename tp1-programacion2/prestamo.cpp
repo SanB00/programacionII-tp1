@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <limits>
-#include "Prestamo.h"
+#include "prestamo.h"
 using namespace std;
 
 void Prestamo::cargar() {

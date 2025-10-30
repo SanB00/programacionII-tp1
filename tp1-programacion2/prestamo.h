@@ -1,7 +1,7 @@
 #ifndef PRESTAMO_H
 #define PRESTAMO_H
 
-#include "Fecha.h"
+#include "fecha.h"
 
 class Prestamo {
 private:

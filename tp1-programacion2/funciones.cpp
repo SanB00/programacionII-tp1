@@ -1,8 +1,8 @@
 #include <iostream>
 #include <limits>
-#include "Libros.h"
-#include "Socio.h"
-#include "Prestamo.h"
+#include "libros.h"
+#include "socio.h"
+#include "prestamo.h"
 using namespace std;
 
 void menuLibros() {
@@ -13,7 +13,9 @@ void menuLibros() {
         cout << "2. Listar\n";
         cout << "3. Baja Logica\n";
         cout << "4. Buscar por ID\n";
+        cout << "5  Buscar por Titulo\n";
         cout << "6. Buscar por Autor\n";
+        cout << "7. Buscar por Editorial\n";
         cout << "0. Volver\n";
         cout << "Opcion: ";
         cin >> opcionSeleccionada;
@@ -68,10 +70,19 @@ void menuLibros() {
                 obj.buscar(id);
                 break;
             }
-
+            case 5: {
+                Libros obj;
+                obj.buscarPorTitulo();
+                break;
+            }
             case 6: {
                 Libros obj;
                 obj.buscarPorAutor();
+                break;
+            }
+            case 7: {
+                Libros obj;
+                obj.buscarPorEditorial();
                 break;
             }
 
