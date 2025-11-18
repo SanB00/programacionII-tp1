@@ -3,7 +3,18 @@
 #include <iostream>
 
 #include "Utils.h"
+#include "time.h"
 using namespace std;
+
+void Fecha::cargarFechaDelDia() {
+    //obtener la fecha actual del sistema y asignarla a dia, mes y anio
+    time_t t = time(0);   // get time now
+    struct tm* now = localtime(&t);
+    dia = now->tm_mday;
+    mes = now->tm_mon + 1;
+    anio = now->tm_year + 1900;
+    mostrar();
+}
 
 void Fecha::cargar() {
   cout << "Dia: ";

@@ -8,6 +8,7 @@ public:
     void cargar();
     void mostrar() const;
     bool esUnaFechaValida() const;
+    void cargarFechaDelDia();
 };
 
 #endif // FECHA_H

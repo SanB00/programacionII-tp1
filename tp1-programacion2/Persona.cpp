@@ -12,7 +12,7 @@ class Persona  {
     apellido = ape;
   }
 
-  void mostrar() {
+  void mostrarNombreApellido() const {
     cout << "Nombre: " << nombre << ", Apellido: " << apellido << endl;
   }
 

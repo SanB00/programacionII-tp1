@@ -5,8 +5,7 @@
 class Socio : public Persona {
  private:
   int idSocio;
-  char nombre[20];
-  char apellido[20];
+  static int siguienteId;
   char telefono[15];
   char direccion[50];
   char correo[40];
@@ -15,7 +14,7 @@ class Socio : public Persona {
 
  public:
   Socio() : Persona("", "") {
-    idSocio = 0;
+    idSocio = ++siguienteId;;
     eliminado = false;
   }
   void cargar();
@@ -30,6 +29,9 @@ class Socio : public Persona {
   bool leer(int pos);
   bool modificar(int pos);
   bool existeId(int id);
+  void mostrarNombreApellido()const {
+      Persona::mostrarNombreApellido();
+  }
 };
 
 #endif  // SOCIO_H

@@ -3,33 +3,19 @@
 #include <limits>
 #include "socio.h"
 using namespace std;
-
+int Socio::siguienteId = 1;
 void Socio::cargar() {
-    bool entro = false;
-    while (!entro) {
-        cout << "ID Socio: ";
-        cin >> idSocio;
-
-        if (cin.fail()) {
-            cin.clear();  // limpia el estado de error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia todo el buffer
-            cout << "Entrada invalida. Intenta de nuevo.\n";
-        }
-        else if (existeId(idSocio)) {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Ese ID ya existe. Ingrese uno diferente.\n";
-        }else {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpia todo el buffer
-            entro = true;  // v�lida
-            cout << "Se ingreso correctamente.\n";
-        }
-    }
-
+    cout << "\n *** Alta de un Socio *** \n";
     cout << "Nombre: ";
-    cin.getline(nombre, 20);
+    cin.ignore();
+    string n;
+    std::getline(std::cin, n);
+    this->setNombre(n);
     cout << "Apellido: ";
-    cin.getline(apellido, 20);
-    
+        string a;
+    std::getline(std::cin, a);
+    this->setApellido(a);
+
     cout << "Telefono: ";
     cin.getline(telefono, 15);
     cout<<"direccion: ";
@@ -37,15 +23,16 @@ void Socio::cargar() {
     cout<<"correo electronico: ";
     cin.getline(correo,40);
     cout<<"fecha de alta del socio: "<<endl;
-    fechaalta.cargar();
+    fechaalta.cargarFechaDelDia();
     eliminado = false;
 }
 
 void Socio::mostrar() const {
     if (!eliminado) {
         cout << "ID: " << idSocio
-             << " | " << nombre << " " << apellido
-             << " | Tel: " << telefono
+             << " | " ;
+             this->mostrarNombreApellido();
+             cout << " | Telefono: " << telefono
              << " | direccion: " << direccion
              << " | Correo: " << correo
              << " | Fecha alta: ";fechaalta.mostrar();

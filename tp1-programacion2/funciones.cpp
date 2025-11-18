@@ -4,25 +4,23 @@
 #include "libros.h"
 #include "prestamo.h"
 #include "socio.h"
+#include "Utils.h"
 using namespace std;
 
 void menuLibros() {
   int opcionSeleccionada;
   do {
     cout << "\n--- MENU LIBROS ---\n";
-    cout << "1. Alta\n";
-    cout << "2. Listar\n";
-    cout << "3. Baja Logica\n";
+    cout << "1. Alta de un Libro\n";
+    cout << "2. Listar Libros\n";
+    cout << "3. Baja Logica de un Libro\n";
     cout << "4. Buscar por ID\n";
     cout << "5  Buscar por Titulo\n";
     cout << "6. Buscar por Autor\n";
     cout << "7. Buscar por Editorial\n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
-    cin >> opcionSeleccionada;
-
-    void checkInputIsNumber();
-    void checkInputIsFloat();
+    opcionSeleccionada = Utils::checkInputIsNumber();
 
     if (cin.fail()) {
       cin.clear();

@@ -10,6 +10,7 @@ using namespace std;
 int Libros::siguienteId = 1; // Definition and initialization
 
 void Libros::cargar() {
+  cout << "\n *** Alta de un Libro *** \n";
   cout << "Ingrese el titulo del libro: ";
   cin.ignore();
   cin.getline(titulo, 50);
