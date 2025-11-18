@@ -45,5 +45,6 @@ float Utils::checkInputIsFloat() {
   } catch (const std::exception& e) {
     std::cerr << "ERROR: ingrese solo numeros decimales o enteros - "
               << e.what() << std::endl;
+      return 0;
   }
 }

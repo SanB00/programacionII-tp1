@@ -21,6 +21,9 @@ void menuLibros() {
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
 
+    void checkInputIsNumber();
+    void checkInputIsFloat();
+
     if (cin.fail()) {
       cin.clear();
       cin.ignore(numeric_limits<streamsize>::max(), '\n');

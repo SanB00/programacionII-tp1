@@ -1,15 +1,23 @@
 #include "Fecha.h"
 
 #include <iostream>
+
+#include "Utils.h"
 using namespace std;
 
 void Fecha::cargar() {
   cout << "Dia: ";
-  cin >> dia;
+  dia = Utils::checkInputIsNumber();
   cout << "Mes: ";
-  cin >> mes;
+  mes = Utils::checkInputIsNumber();
   cout << "Anio: ";
-  cin >> anio;
+  anio = Utils::checkInputIsNumber();
+  if (esUnaFechaValida()) {
+    cout << "Fecha ingresada correctamente.\n";
+  } else {
+    cout << "Fecha invalida. Por favor, ingrese una fecha valida.\n";
+    cargar();
+  }
 }
 
 void Fecha::mostrar() const { cout << dia << "/" << mes << "/" << anio; }
@@ -18,7 +26,7 @@ void Fecha::mostrar() const { cout << dia << "/" << mes << "/" << anio; }
 bool Fecha::esUnaFechaValida() const {
   if (anio < 1900 || anio > 2100) return false;
   if (mes < 1 || mes > 12) return false;
-  if (dia < 1) return false;
+  if (dia < 1 || dia > 31) return false;
 
   int diasEnMes;
   switch (mes) {
