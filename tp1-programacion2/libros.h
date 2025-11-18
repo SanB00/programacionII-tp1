@@ -22,10 +22,10 @@ class Libros {
   int getIdLibro() const { return idLibro; }
   bool getEliminado() const { return eliminado; }
   void setEliminado(bool e) { eliminado = e; }
-  void buscar(int id);
-  void buscarPorAutor();
-  void buscarPorEditorial();
-  void buscarPorTitulo();
+  static void buscarPorId(int id);
+  static void buscarPorAutor();
+  static void buscarPorEditorial();
+  static void buscarPorTitulo();
   const char* getAutor() const { return autor; }
   const char* getEditorial() const { return editorial; }
   const char* getTitulo() const { return titulo; }

@@ -2,14 +2,14 @@
 #define FECHA_H
 
 class Fecha {
-private:
-    int dia, mes, anio;
-public:
-    void cargar();
-    void mostrar() const;
-    bool esUnaFechaValida() const;
-    void cargarFechaDelDia();
+ private:
+  int dia, mes, anio;
+
+ public:
+  void cargarFechaManual();
+  void mostrar() const;
+  bool esUnaFechaValida() const;
+  void cargarFechaDelDia();
 };
 
-#endif // FECHA_H
-
+#endif  // FECHA_H
