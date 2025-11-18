@@ -38,9 +38,9 @@ void Prestamo::cargar() {
     cout << "ID Libro: ";
     cin >> idLibro;
     cout << "Fecha Prestamo: \n";
-    fechaPrestamo.cargar();
+    fechaPrestamo.cargarFechaDelDia();
     cout << "Fecha Devolucion: \n";
-    fechaDevolucion.cargar();
+    fechaDevolucion.cargarFechaManual();
 }
 
 void Prestamo::mostrar() const {

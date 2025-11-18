@@ -1,10 +1,10 @@
 #include <iostream>
 #include <limits>
 
+#include "Utils.h"
 #include "libros.h"
 #include "prestamo.h"
 #include "socio.h"
-#include "Utils.h"
 using namespace std;
 
 void menuLibros() {
@@ -65,24 +65,20 @@ void menuLibros() {
       case 4: {
         int id;
         cout << "Ingrese ID del libro a buscar: ";
-        cin >> id;
-        Libros obj;
-        obj.buscar(id);
+          id = Utils::checkInputIsNumber();
+        Libros::buscarPorId(id);
         break;
       }
       case 5: {
-        Libros obj;
-        obj.buscarPorTitulo();
+        Libros::buscarPorTitulo();
         break;
       }
       case 6: {
-        Libros obj;
-        obj.buscarPorAutor();
+        Libros::buscarPorAutor();
         break;
       }
       case 7: {
-        Libros obj;
-        obj.buscarPorEditorial();
+        Libros::buscarPorEditorial();
         break;
       }
 

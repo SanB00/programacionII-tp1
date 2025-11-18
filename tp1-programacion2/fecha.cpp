@@ -7,16 +7,15 @@
 using namespace std;
 
 void Fecha::cargarFechaDelDia() {
-    //obtener la fecha actual del sistema y asignarla a dia, mes y anio
-    time_t t = time(0);   // get time now
-    struct tm* now = localtime(&t);
-    dia = now->tm_mday;
-    mes = now->tm_mon + 1;
-    anio = now->tm_year + 1900;
-    mostrar();
+  time_t t = time(0);  // get time now
+  struct tm* now = localtime(&t);
+  dia = now->tm_mday;
+  mes = now->tm_mon + 1;
+  anio = now->tm_year + 1900;
+  mostrar();
 }
 
-void Fecha::cargar() {
+void Fecha::cargarFechaManual() {
   cout << "Dia: ";
   dia = Utils::checkInputIsNumber();
   cout << "Mes: ";
@@ -27,7 +26,7 @@ void Fecha::cargar() {
     cout << "Fecha ingresada correctamente.\n";
   } else {
     cout << "Fecha invalida. Por favor, ingrese una fecha valida.\n";
-    cargar();
+      cargarFechaManual();
   }
 }
 

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int Libros::siguienteId = 1; // Definition and initialization
+int Libros::siguienteId = 1;
 
 void Libros::cargar() {
   cout << "\n *** Alta de un Libro *** \n";
@@ -18,7 +18,7 @@ void Libros::cargar() {
   cin.getline(autor, 30);
   cout << "Ingrese la editorial del libro: ";
   cin.getline(editorial, 30);
-  fechaalta.cargar();
+  fechaalta.cargarFechaDelDia();
   eliminado = false;
 }
 
@@ -30,24 +30,6 @@ void Libros::mostrar() const {
     fechaalta.mostrar();
     cout << endl;
   }
-}
-
-void Libros::buscar(int id) {
-  bool comprobado = false;
-  Libros libro;
-  FILE* p = fopen("libros.dat", "rb");
-  while (fread(&libro, sizeof(libro), 1, p)) {
-    if (libro.getIdLibro() == id) {
-      libro.mostrar();
-      comprobado = true;
-      ;
-    }
-  }
-
-  if (comprobado == false) {
-    cout << "no existe id" << endl;
-  }
-  fclose(p);
 }
 
 /// Archivo
@@ -94,9 +76,28 @@ bool Libros::existeId(int id) {
   fclose(p);
   return false;
 }
+
 ///
 ///
 ///
+void Libros::buscarPorId(int id) {
+  bool comprobado = false;
+  Libros libro;
+  FILE* p = fopen("libros.dat", "rb");
+  while (fread(&libro, sizeof(libro), 1, p)) {
+    if (libro.getIdLibro() == id) {
+      libro.mostrar();
+      comprobado = true;
+      ;
+    }
+  }
+
+  if (comprobado == false) {
+    cout << "No hay resultados para el ID ingresado: " << id << endl;
+  }
+  fclose(p);
+}
+
 void Libros::buscarPorAutor() {
   char autorBuscado[30];
   cout << "Ingrese el nombre del autor a buscar: ";
@@ -127,9 +128,7 @@ void Libros::buscarPorAutor() {
 
   fclose(p);
 }
-///
-///
-///
+
 void Libros::buscarPorEditorial() {
   char editorialBuscada[30];
   cout << "Ingrese el nombre de la editorial a buscar: ";
@@ -160,9 +159,7 @@ void Libros::buscarPorEditorial() {
 
   fclose(p);
 }
-///
-///
-///
+
 void Libros::buscarPorTitulo() {
   char tituloBuscado[50];
   cout << "Ingrese el titulo del libro a buscar: ";
