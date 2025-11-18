@@ -7,6 +7,8 @@
 
 using namespace std;
 
+int Libros::siguienteId = 1; // Definition and initialization
+
 void Libros::cargar() {
   cout << "Ingrese el titulo del libro: ";
   cin.ignore();
@@ -28,12 +30,6 @@ void Libros::mostrar() const {
     cout << endl;
   }
 }
-
-int Libros::getIdLibro() const { return idLibro; }
-
-bool Libros::getEliminado() const { return eliminado; }
-
-void Libros::setEliminado(bool e) { eliminado = e; }
 
 void Libros::buscar(int id) {
   bool comprobado = false;

@@ -14,6 +14,10 @@ class Socio : public Persona {
   bool eliminado;
 
  public:
+  Socio() : Persona("", "") {
+    idSocio = 0;
+    eliminado = false;
+  }
   void cargar();
   void mostrar() const;
   int getIdSocio() const;

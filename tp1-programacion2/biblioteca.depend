@@ -226,3 +226,58 @@
 	"Socio.h"
 	"Prestamo.h"
 
+1763474923 source:c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\autor.cpp
+	<string>
+	"Persona.cpp"
+
+1763475920 c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\persona.cpp
+	<iostream>
+
+1763475123 source:c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\fecha.cpp
+	"Fecha.h"
+	<iostream>
+
+1763475967 c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\fecha.h
+
+1763474876 source:c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\funciones.cpp
+	<iostream>
+	<limits>
+	"libros.h"
+	"prestamo.h"
+	"socio.h"
+
+1763476520 c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\libros.h
+	"fecha.h"
+
+1763225144 c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\prestamo.h
+	"fecha.h"
+
+1763476016 c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\socio.h
+	"Persona.cpp"
+	"fecha.h"
+
+1763476514 source:c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\libros.cpp
+	"libros.h"
+	<cstdio>
+	<cstring>
+	<iostream>
+	<limits>
+
+1763474923 source:c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\main.cpp
+	<iostream>
+	"funciones.h"
+
+1763225144 c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\funciones.h
+
+1763225144 source:c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\prestamo.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"prestamo.h"
+
+1763474923 source:c:\users\josee\desktop\git\programacionii-tp1\tp1-programacion2\socio.cpp
+	<iostream>
+	<cstdio>
+	<limits>
+	"socio.h"
+

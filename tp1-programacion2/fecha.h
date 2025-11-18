@@ -7,6 +7,7 @@ private:
 public:
     void cargar();
     void mostrar() const;
+    bool esUnaFechaValida() const;
 };
 
 #endif // FECHA_H
