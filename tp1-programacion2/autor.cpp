@@ -1,5 +1,8 @@
-#include <iostream>
+#include <string>
 
-using namespace std;
+#include "Persona.cpp"
 
-
+class Autor : public Persona {
+ public:
+  Autor(string nombre, string apellido) : Persona(nombre, apellido) {}
+};

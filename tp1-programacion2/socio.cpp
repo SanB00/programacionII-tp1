@@ -29,6 +29,7 @@ void Socio::cargar() {
     cin.getline(nombre, 20);
     cout << "Apellido: ";
     cin.getline(apellido, 20);
+    
     cout << "Telefono: ";
     cin.getline(telefono, 15);
     cout<<"direccion: ";

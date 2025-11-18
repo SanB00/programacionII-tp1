@@ -1,6 +1,6 @@
 #ifndef AUTOR_H_INCLUDED
 #define AUTOR_H_INCLUDED
+#include <string>
 
-
-
-#endif // AUTOR_H_INCLUDED
+#include "Persona.cpp"
+#endif  // AUTOR_H_INCLUDED
