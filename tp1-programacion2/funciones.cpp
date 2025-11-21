@@ -20,13 +20,7 @@ void menuLibros() {
     cout << "7. Buscar por Editorial\n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
-    opcionSeleccionada = Utils::checkInputIsNumber();
 
-    if (cin.fail()) {
-      cin.clear();
-      cin.ignore(numeric_limits<streamsize>::max(), '\n');
-      cout << "Entrada invalida. Intenta de nuevo.\n";
-    }
     switch (opcionSeleccionada) {
       case 1: {
         Libros obj;
@@ -65,7 +59,6 @@ void menuLibros() {
       case 4: {
         int id;
         cout << "Ingrese ID del libro a buscar: ";
-          id = Utils::checkInputIsNumber();
         Libros::buscarPorId(id);
         break;
       }
@@ -105,12 +98,6 @@ void menuSocios() {
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> op;
-    if (cin.fail()) {
-      cin.clear();
-      cin.ignore(numeric_limits<streamsize>::max(), '\n');
-      cout << "Entrada invalida. Intenta de nuevo.\n";
-    }
-
     switch (op) {
       case 1: {
         Socio obj;
@@ -172,15 +159,10 @@ void menuPrestamos() {
     cout << "\n--- MENU PRESTAMOS ---\n";
     cout << "1. Alta\n";
     cout << "2. Listar\n";
-    cout << "3. buscar \n";
+    cout << "3. Buscar \n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> op;
-    if (cin.fail()) {
-      cin.clear();
-      cin.ignore(numeric_limits<streamsize>::max(), '\n');
-      cout << "Entrada invalida. Intenta de nuevo.\n";
-    }
 
     switch (op) {
       case 1: {
@@ -204,11 +186,11 @@ void menuPrestamos() {
         Prestamo obj;
         cout << "ingrese id del prestamo" << endl;
         cin >> id;
-        obj.buscar(id);
+        obj.buscarPorId(id);
+        break;
       }
 
       case 0:
-        comprobado = true;
         cout << "Volviendo al menu...\n";
         break;
 
