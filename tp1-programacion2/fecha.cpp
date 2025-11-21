@@ -17,16 +17,16 @@ void Fecha::cargarFechaDelDia() {
 
 void Fecha::cargarFechaManual() {
   cout << "Dia: ";
-  dia = Utils::checkInputIsNumber();
+  cin >> dia;
   cout << "Mes: ";
-  mes = Utils::checkInputIsNumber();
+  cin >> mes;
   cout << "Anio: ";
-  anio = Utils::checkInputIsNumber();
+  cin >> anio;
   if (esUnaFechaValida()) {
     cout << "Fecha ingresada correctamente.\n";
   } else {
     cout << "Fecha invalida. Por favor, ingrese una fecha valida.\n";
-      cargarFechaManual();
+    cargarFechaManual();
   }
 }
 
