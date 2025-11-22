@@ -93,15 +93,15 @@ void Prestamo::buscarSocioConMasLibros() {
   Prestamo aux;
   while (fread(&aux, sizeof(Prestamo), 1, p)) {
     int id = aux.getIdSocio();
-    bool found = false;
+    bool encontrado = false;
     for (int i = 0; i < cantUnica; i++) {
       if (ids[i] == id) {
         cant[i]++;
-        found = true;
+        encontrado = true;
         break;
       }
     }
-    if (!found) {
+    if (!encontrado) {
       if (cantUnica >= MAX_SOCIOS) {
         continue;
       }

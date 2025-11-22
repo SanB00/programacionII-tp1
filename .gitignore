@@ -5,3 +5,6 @@ tp1-programacion2.xcodeproj/project.xcworkspace/xcuserdata/je.xcuserdatad/
 .depend
 .o
 *.o
+tp1-programacion2/biblioteca.depend
+tp1-programacion2/bin/
+tp1-programacion2/obj/
