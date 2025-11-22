@@ -19,7 +19,7 @@ void menuLibros() {
     cout << "6. Buscar por Autor\n";
     cout << "7. Buscar por Editorial\n";
     cout << "0. Volver\n";
-    cout << "Opcion: ";
+    cout << "Opcion: "; cin>>opcionSeleccionada;
 
     switch (opcionSeleccionada) {
       case 1: {
@@ -88,7 +88,7 @@ void menuLibros() {
 }
 
 void menuSocios() {
-  int op;
+  int opcionSeleccionada;
   do {
     cout << "\n--- MENU SOCIOS ---\n";
     cout << "1. Alta\n";
@@ -97,8 +97,8 @@ void menuSocios() {
     cout << "4. Buscar por ID\n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
-    cin >> op;
-    switch (op) {
+    cin >> opcionSeleccionada;
+    switch (opcionSeleccionada) {
       case 1: {
         Socio obj;
         obj.cargar();
@@ -149,11 +149,11 @@ void menuSocios() {
         cout << "Opcion invalida. Intente nuevamente.\n";
     }
 
-  } while (op != 0);
+  } while (opcionSeleccionada != 0);
 }
 
 void menuPrestamos() {
-  int op;
+  int opcionSeleccionada;
   bool comprobado = false;
   do {
     cout << "\n--- MENU PRESTAMOS ---\n";
@@ -162,9 +162,9 @@ void menuPrestamos() {
     cout << "3. Buscar \n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
-    cin >> op;
+    cin >> opcionSeleccionada;
 
-    switch (op) {
+    switch (opcionSeleccionada) {
       case 1: {
         Prestamo obj;
         obj.cargar();
@@ -199,5 +199,5 @@ void menuPrestamos() {
         break;
     }
 
-  } while (comprobado != false);
+  } while (opcionSeleccionada != false);
 }

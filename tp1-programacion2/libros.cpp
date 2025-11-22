@@ -123,7 +123,7 @@ void Libros::buscarPorAutor() {
   }
 
   if (!encontrado) {
-    cout << "\nNo se encontraron libros de ese autor.\n";
+    cout << "\nNo se encontraron libros de ese autor: \""<<autorBuscado<<"\".\n";
   }
 
   fclose(p);
@@ -154,7 +154,7 @@ void Libros::buscarPorEditorial() {
   }
 
   if (!encontrado) {
-    cout << "\nNo se encontraron libros de esa editorial.\n";
+    cout << "\nNo se encontraron libros de esa editorial: \""<<editorialBuscada<<"\".\n";
   }
 
   fclose(p);
