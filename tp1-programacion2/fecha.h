@@ -6,6 +6,7 @@ class Fecha {
   int dia, mes, anio;
 
  public:
+  Fecha(int d = 1, int m = 1, int a = 1900);
   void cargarFechaManual();
   void mostrar() const;
   bool esUnaFechaValida() const;

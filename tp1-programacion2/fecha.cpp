@@ -5,9 +5,13 @@
 #include "Utils.h"
 #include "time.h"
 using namespace std;
-
+void Fecha::Fecha(int d, int m, int a) {
+  dia = d;
+  mes = m;
+  anio = a;
+}
 void Fecha::cargarFechaDelDia() {
-  time_t t = time(0);  // get time now
+  time_t t = time(0);
   struct tm* now = localtime(&t);
   dia = now->tm_mday;
   mes = now->tm_mon + 1;
@@ -34,9 +38,19 @@ void Fecha::mostrar() const { cout << dia << "/" << mes << "/" << anio; }
 
 /*Corrobora si la fecha es válida*/
 bool Fecha::esUnaFechaValida() const {
-  if (anio < 1900 || anio > 2100) return false;
-  if (mes < 1 || mes > 12) return false;
-  if (dia < 1 || dia > 31) return false;
+  if (anio < 1900 || anio > 2100) {
+    cout << "Anio invalido. Por favor ingrese un anio entre el 1900 y 2100"
+         << endl;
+    return false;
+  }
+  if (mes < 1 || mes > 12) {
+    cout << "Mes invalido. Por favor ingrese un mes entre 1 y 12." << endl;
+    return false;
+  }
+  if (dia < 1 || dia > 31) {
+    cout << "Dia invalido. Por favor ingrese un dia entre 1 y 31." << endl;
+    return false;
+  }
 
   int diasEnMes;
   switch (mes) {

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <limits>
 
+#include "fecha.h"
 #include "socio.h"
 using namespace std;
 
@@ -132,7 +133,6 @@ void Prestamo::buscarSocioConMasLibros() {
 ///
 ///
 ///
-/// funcion que busca el libro mas prestado
 void Prestamo::buscarLibroMasPrestado() {
   const int MAX_LIBROS = 1000;
   int ids[MAX_LIBROS];
@@ -187,9 +187,8 @@ void Prestamo::buscarLibroMasPrestado() {
   cout << "Libro más prestado (" << cant[maxIdx] << " prestamos):" << endl;
 }
 ///
-/// ∫
 ///
-/// funcion que por mes del anio devuelve la cantidad de prestamos realizados
+///
 int Prestamo::cantidadPrestamosPorMes(int mes, int anio) {
   int contador = 0;
   FILE* p = fopen("prestamos.dat", "rb");
@@ -209,13 +208,21 @@ int Prestamo::cantidadPrestamosPorMes(int mes, int anio) {
   fclose(p);
   return contador;
 }
-
+///
+///
+///
 void Prestamo::cantidadPrestamosPorAnio() {
   int anio = 0;
   int totalPrestado = 0;
   cout << "Ingrese el anio para el informe: ";
   cin >> anio;
-
+  if (anio >= 2100 || anio <= 1900) {
+    cout << "Anio invalido. Por favor ingrese un anio entre 1900 y 2100."
+         << endl;
+    return;
+  } else {
+    cout << "Anio valido." << endl;
+  }
   cout << "Cantidad de prestamos por mes en el anio " << anio << ":\n";
   for (int mes = 1; mes <= 12; mes++) {
     int cantidad = Prestamo::cantidadPrestamosPorMes(mes, anio);
@@ -223,5 +230,23 @@ void Prestamo::cantidadPrestamosPorAnio() {
     totalPrestado += cantidad;
   }
   cout << "Total de prestamos en el anio " << anio << ": " << totalPrestado
+       << " prestamos\n";
+}
+
+void Prestamo::cantidadPrestamosPorAnioYMes() {
+  int anio = 0, mes = 0, dia = 1;
+  int totalPrestado = 0;
+  cout << "Ingrese el anio para el informe: ";
+  cin >> anio;
+  cout << "Ingrese el mes para el informe: ";
+  cin >> mes;
+  Fecha fecha(dia, mes, anio);
+  if (!fecha.esUnaFechaValida()) {
+    cout << "Fecha invalida. Por favor ingrese una fecha valida." << endl;
+    return;
+  }
+
+  int cantidad = Prestamo::cantidadPrestamosPorMes(mes, anio);
+  cout << "Anio " << anio << "Mes " << mes << ": " << cantidad
        << " prestamos\n";
 }
