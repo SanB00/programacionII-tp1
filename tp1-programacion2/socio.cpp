@@ -8,7 +8,7 @@ int Socio::siguienteId = 1;
 void Socio::cargar() {
   cout << "\n *** Alta de un Socio *** \n";
   cout << "Nombre: ";
-  cin.ignore();
+  cin.sync();
   string n;
   std::getline(std::cin, n);
   this->setNombre(n);
@@ -45,20 +45,21 @@ bool Socio::getEliminado() const { return eliminado; }
 
 void Socio::setEliminado(bool e) { eliminado = e; }
 
-void Socio::buscar(int id) {
-  Socio socios;
+Socio Socio::buscar(int id) {
+  Socio obj;
   bool comprobado = false;
   FILE* p = fopen("socios.dat", "rb");
-  while (fread(&socios, sizeof(socios), 1, p)) {
-    if (socios.getIdSocio() == id) {
-      socios.mostrar();
+  while (fread(&obj, sizeof(Socio), 1, p)) {
+    if (obj.getIdSocio() == id) {
+      obj.mostrar();
       comprobado = true;
     }
   }
   if (comprobado == false) {
-    cout << "no existe id" << endl;
+    cout << "no existe socio con id: " << id << endl;
   }
   fclose(p);
+  return obj;
 }
 
 /// Archivo

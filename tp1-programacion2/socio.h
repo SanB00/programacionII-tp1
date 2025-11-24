@@ -15,7 +15,6 @@ class Socio : public Persona {
  public:
   Socio() : Persona("", "") {
     idSocio = ++siguienteId;
-    ;
     eliminado = false;
   }
   void cargar();
@@ -23,7 +22,7 @@ class Socio : public Persona {
   int getIdSocio() const;
   bool getEliminado() const;
   void setEliminado(bool e);
-  void buscar(int id);
+  Socio buscar(int id);
 
   /// Manejo de archivo
   bool guardar();

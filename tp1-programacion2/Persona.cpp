@@ -1,7 +1,7 @@
 using namespace std;
 #include <iostream>
 
-class Persona  {
+class Persona {
  private:
   string nombre;
   string apellido;

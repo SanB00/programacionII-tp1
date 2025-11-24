@@ -100,6 +100,7 @@ void menuSocios() {
     cout << "2. Listar\n";
     cout << "3. Baja Logica\n";
     cout << "4. Buscar por ID\n";
+    cout << "5. Modificar\n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
@@ -148,6 +149,17 @@ void menuSocios() {
         cin >> id;
         Socio obj;
         obj.buscar(id);
+        break;
+      }
+      case 5: {
+        int id;
+        cout << "Ingrese ID del socio a modificar: ";
+        cin >> id;
+        Socio obj;
+        obj.buscar(id);
+        cout << "Ingrese los nuevos datos del socio:\n";
+        obj.cargar();
+        obj.modificar(id);
         break;
       }
 
@@ -219,6 +231,8 @@ void menuInformes() {
   do {
     cout << "\n--- MENU INFORMES ---\n";
     cout << "1. Socio con mas libros prestados\n";
+    cout << "2. Libro mas prestado\n";
+    cout << "3. Cantidad de prestamos por Anio\n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
@@ -226,6 +240,14 @@ void menuInformes() {
     switch (opcionSeleccionada) {
       case 1: {
         Prestamo::buscarSocioConMasLibros();
+        break;
+      }
+      case 2: {
+        Prestamo::buscarLibroMasPrestado();
+        break;
+      }
+      case 3: {
+        Prestamo::cantidadPrestamosPorAnio();
         break;
       }
       case 0:

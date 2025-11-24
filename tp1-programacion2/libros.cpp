@@ -12,7 +12,7 @@ int Libros::siguienteId = 1;
 void Libros::cargar() {
   cout << "\n *** Alta de un Libro *** \n";
   cout << "Ingrese el titulo del libro: ";
-  cin.ignore();
+  cin.sync();  // Limpiar el buffer de entrada antes de getline '\n'
   cin.getline(titulo, 50);
   cout << "Ingrese el autor del libro: ";
   cin.getline(autor, 30);
@@ -123,7 +123,8 @@ void Libros::buscarPorAutor() {
   }
 
   if (!encontrado) {
-    cout << "\nNo se encontraron libros de ese autor: \""<<autorBuscado<<"\".\n";
+    cout << "\nNo se encontraron libros de ese autor: \"" << autorBuscado
+         << "\".\n";
   }
 
   fclose(p);
@@ -154,7 +155,8 @@ void Libros::buscarPorEditorial() {
   }
 
   if (!encontrado) {
-    cout << "\nNo se encontraron libros de esa editorial: \""<<editorialBuscada<<"\".\n";
+    cout << "\nNo se encontraron libros de esa editorial: \""
+         << editorialBuscada << "\".\n";
   }
 
   fclose(p);

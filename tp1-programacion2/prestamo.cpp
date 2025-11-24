@@ -129,3 +129,99 @@ void Prestamo::buscarSocioConMasLibros() {
   Socio s;
   s.buscar(idMax);
 }
+///
+///
+///
+/// funcion que busca el libro mas prestado
+void Prestamo::buscarLibroMasPrestado() {
+  const int MAX_LIBROS = 1000;
+  int ids[MAX_LIBROS];
+  int cant[MAX_LIBROS];
+  int cantUnica = 0;
+
+  for (int i = 0; i < MAX_LIBROS; i++) {
+    ids[i] = 0;
+    cant[i] = 0;
+  }
+
+  FILE* p = fopen("prestamos.dat", "rb");
+  if (p == NULL) {
+    cout << "No se pudo abrir el archivo de prestamos." << endl;
+    return;
+  }
+
+  Prestamo aux;
+  while (fread(&aux, sizeof(Prestamo), 1, p)) {
+    int id = aux.getIdLibro();
+    bool encontrado = false;
+    for (int i = 0; i < cantUnica; i++) {
+      if (ids[i] == id) {
+        cant[i]++;
+        encontrado = true;
+        break;
+      }
+    }
+    if (!encontrado) {
+      if (cantUnica >= MAX_LIBROS) {
+        continue;
+      }
+      ids[cantUnica] = id;
+      cant[cantUnica] = 1;
+      cantUnica++;
+    }
+  }
+
+  fclose(p);
+
+  if (cantUnica == 0) {
+    cout << "No hay prestamos registrados." << endl;
+    return;
+  }
+
+  int maxIdx = 0;
+  for (int i = 1; i < cantUnica; i++) {
+    if (cant[i] > cant[maxIdx]) maxIdx = i;
+  }
+
+  int idMax = ids[maxIdx];
+  cout << "Libro más prestado (" << cant[maxIdx] << " prestamos):" << endl;
+}
+///
+/// ∫
+///
+/// funcion que por mes del anio devuelve la cantidad de prestamos realizados
+int Prestamo::cantidadPrestamosPorMes(int mes, int anio) {
+  int contador = 0;
+  FILE* p = fopen("prestamos.dat", "rb");
+  if (p == NULL) {
+    cout << "No se pudo abrir el archivo de prestamos." << endl;
+    return 0;
+  }
+
+  Prestamo aux;
+  while (fread(&aux, sizeof(Prestamo), 1, p)) {
+    if (aux.fechaPrestamo.getMes() == mes &&
+        aux.fechaPrestamo.getAnio() == anio) {
+      contador++;
+    }
+  }
+
+  fclose(p);
+  return contador;
+}
+
+void Prestamo::cantidadPrestamosPorAnio() {
+  int anio = 0;
+  int totalPrestado = 0;
+  cout << "Ingrese el anio para el informe: ";
+  cin >> anio;
+
+  cout << "Cantidad de prestamos por mes en el anio " << anio << ":\n";
+  for (int mes = 1; mes <= 12; mes++) {
+    int cantidad = Prestamo::cantidadPrestamosPorMes(mes, anio);
+    cout << "Mes " << mes << ": " << cantidad << " prestamos\n";
+    totalPrestado += cantidad;
+  }
+  cout << "Total de prestamos en el anio " << anio << ": " << totalPrestado
+       << " prestamos\n";
+}

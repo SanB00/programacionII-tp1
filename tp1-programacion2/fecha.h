@@ -10,6 +10,9 @@ class Fecha {
   void mostrar() const;
   bool esUnaFechaValida() const;
   void cargarFechaDelDia();
+  int getMes() const { return mes; }
+  int getAnio() const { return anio; }
+  int getDia() const { return dia; }
 };
 
 #endif  // FECHA_H

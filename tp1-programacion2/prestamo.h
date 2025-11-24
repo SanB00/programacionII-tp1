@@ -20,10 +20,13 @@ class Prestamo {
   int getIdLibro() const;
 
   /// Manejo de archivo
-    bool guardar();
-    bool leer(int pos);
-    static void buscarPorId(int id);
-    static void buscarSocioConMasLibros();
+  bool guardar();
+  bool leer(int pos);
+  static void buscarPorId(int id);
+  static void buscarSocioConMasLibros();
+  static void buscarLibroMasPrestado();
+  static int cantidadPrestamosPorMes(int mes, int anio);
+  static void cantidadPrestamosPorAnio();
 };
 
 #endif  // PRESTAMO_H
