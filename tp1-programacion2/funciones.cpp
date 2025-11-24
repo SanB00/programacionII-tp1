@@ -2,6 +2,7 @@
 #include <limits>
 
 #include "Utils.h"
+#include "Validaciones.cpp"
 #include "libros.h"
 #include "prestamo.h"
 #include "socio.h"
@@ -19,9 +20,14 @@ void menuLibros() {
     cout << "6. Buscar por Autor\n";
     cout << "7. Buscar por Editorial\n";
     cout << "0. Volver\n";
-    cout << "Opcion: "; cin>>opcionSeleccionada;
+    cout << "Opcion: ";
+    cin >> opcionSeleccionada;
+    cin.ignore();
 
     switch (opcionSeleccionada) {
+      default:
+        cout << "Opcion invalida. Intente nuevamente.\n";
+        break;
       case 1: {
         Libros obj;
         obj.cargar();
@@ -34,6 +40,9 @@ void menuLibros() {
         int pos = 0;
         while (obj.leer(pos++)) {
           obj.mostrar();
+        }
+        if (pos == 1) {
+          cout << "No hay libros cargados.\n";
         }
         break;
       }
@@ -78,10 +87,6 @@ void menuLibros() {
       case 0:
         cout << "Volviendo al menu principal...\n";
         break;
-
-      default:
-        cout << "Opcion invalida. Intente nuevamente.\n";
-        break;
     }
 
   } while (opcionSeleccionada != 0);
@@ -98,6 +103,7 @@ void menuSocios() {
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
+    cin.ignore();
     switch (opcionSeleccionada) {
       case 1: {
         Socio obj;
@@ -110,6 +116,9 @@ void menuSocios() {
         int pos = 0;
         while (obj.leer(pos++)) {
           obj.mostrar();
+        }
+        if (pos == 1) {
+          cout << "No hay socios cargados.\n";
         }
         break;
       }
@@ -147,6 +156,7 @@ void menuSocios() {
         break;
       default:
         cout << "Opcion invalida. Intente nuevamente.\n";
+        break;
     }
 
   } while (opcionSeleccionada != 0);
@@ -163,7 +173,7 @@ void menuPrestamos() {
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
-
+    cin.ignore();
     switch (opcionSeleccionada) {
       case 1: {
         Prestamo obj;
@@ -177,6 +187,9 @@ void menuPrestamos() {
         int pos = 0;
         while (obj.leer(pos++)) {
           obj.mostrar();
+        }
+        if (pos == 1) {
+          cout << "No hay prestamos cargados.\n";
         }
         break;
       }
@@ -200,4 +213,27 @@ void menuPrestamos() {
     }
 
   } while (opcionSeleccionada != false);
+}
+void menuInformes() {
+  int opcionSeleccionada;
+  do {
+    cout << "\n--- MENU INFORMES ---\n";
+    cout << "1. Socio con mas libros prestados\n";
+    cout << "0. Volver\n";
+    cout << "Opcion: ";
+    cin >> opcionSeleccionada;
+    cin.ignore();
+    switch (opcionSeleccionada) {
+      case 1: {
+        Prestamo::buscarSocioConMasLibros();
+        break;
+      }
+      case 0:
+        cout << "Volviendo al menu principal...\n";
+        break;
+      default:
+        cout << "Opcion invalida. Intente nuevamente.\n";
+        break;
+    }
+  } while (opcionSeleccionada != 0);
 }

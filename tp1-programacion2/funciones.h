@@ -4,5 +4,6 @@
 void menuLibros();
 void menuSocios();
 void menuPrestamos();
+void menuInformes();
 
-#endif // FUNCIONES_H
+#endif  // FUNCIONES_H

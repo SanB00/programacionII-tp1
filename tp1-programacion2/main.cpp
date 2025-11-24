@@ -4,17 +4,18 @@
 using namespace std;
 
 int main() {
-  int opcion;
+  int opcionSeleccionada;
   do {
     cout << "\n===== MENU BIBLIOTECA =====\n";
     cout << "1. Gestionar Libros\n";
     cout << "2. Gestionar Socios\n";
     cout << "3. Gestionar Prestamos\n";
+    cout << "4. Informes\n";
     cout << "0. Salir\n";
     cout << "Opcion: ";
-    cin >> opcion;
+    cin >> opcionSeleccionada;
     cin.ignore();
-    switch (opcion) {
+    switch (opcionSeleccionada) {
       case 1:
         menuLibros();
         break;
@@ -24,6 +25,9 @@ int main() {
       case 3:
         menuPrestamos();
         break;
+      case 4:
+        menuInformes();
+        break;
       default:
         cout << "Opcion invalida" << endl;
         break;
@@ -31,6 +35,6 @@ int main() {
         cout << "Saliendo del programa..." << endl;
         break;
     }
-  } while (opcion != 0);
+  } while (opcionSeleccionada != 0);
   return 0;
 }
