@@ -109,25 +109,25 @@ bool Socio::modificarRegistroEnArchivo(int posicion, const Socio& datosNuevos) {
     return false;
   }
 
-  // 1. Calcular el desplazamiento (offset) en bytes
+  // 1. Calcula el desplazamiento (offset) en bytes
   // Multiplicamos la 'posicion' (índice base 0) por el tamaño del objeto Socio
   long desplazamiento = posicion * sizeof(Socio);
 
-  // 2. Posicionar el puntero del archivo
+  // 2. Posiciona el puntero del archivo
   // Movemos el puntero 'desplazamiento' bytes desde el inicio (SEEK_SET)
   fseek(pFILE, desplazamiento, SEEK_SET);
 
-  // 3. Escribir los nuevos datos en esa posición
+  // 3. Escribe  los nuevos datos en esa posición
   // Escribe 1 bloque de tamaño sizeof(Socio) desde la dirección de datosNuevos
   size_t escritos = fwrite(&datosNuevos, sizeof(Socio), 1, pFILE);
 
   fclose(pFILE);
 
   if (escritos == 1) {
-    return true;  // Éxito
+    return true;
   } else {
     cout << "Error al escribir el registro en la posicion " << posicion << endl;
-    return false;  // Error de escritura
+    return false;
   }
 }
 
@@ -152,9 +152,9 @@ int Socio::buscarPosicionDeRegistro(int idSocio) {
   while (fread(&obj, sizeof(Socio), 1, p)) {
     if (obj.getIdSocio() == idSocio) {
       fclose(p);
-      return posicion;  // Retorna la posición (índice base 0)
+      return posicion;
     }
-    posicion++;  // Incrementa la posición por cada registro leído
+    posicion++;
   }
   fclose(p);
   return -1;  // No se encontró el ID
@@ -174,7 +174,7 @@ void Socio::modificarRegistro() {
   Socio socioExistente = buscar(idBuscado);
   Socio::cargarCamposModificables();  // modifica los campos del objeto this
 
-  // Mantener el mismo ID y la la fecha de alta original
+  // Mantiene el mismo ID y la la fecha de alta original
   this->idSocio = idBuscado;
   this->fechaAlta = socioExistente.getFechaAlta();
   this->eliminado = socioExistente.getEliminado();

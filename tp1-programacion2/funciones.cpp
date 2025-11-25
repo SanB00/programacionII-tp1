@@ -259,13 +259,19 @@ void generarArchivosNecesariosConDatosFicticios() {
   crearArchivoSiNoExiste("libros.dat");
   crearArchivoSiNoExiste("socios.dat");
   Fecha fechaAlta = Fecha(1, 9, 2025);
-  Socio obj = Socio(const_cast<char*>("Juan"), const_cast<char*>("Perez"), const_cast<char*>("11111111"), const_cast<char*>("Calle Falsa 123"),
-                    const_cast<char*>("aaaa@mail.com"), fechaAlta);
+  Socio obj =
+      Socio(const_cast<char*>("Juan"), const_cast<char*>("Perez"),
+            const_cast<char*>("11111111"), const_cast<char*>("Calle Falsa 123"),
+            const_cast<char*>("aaaa@mail.com"), fechaAlta);
   obj.guardar();
-  Socio obj2 = Socio(const_cast<char*>("Lucila"), const_cast<char*>("G"), const_cast<char*>("2222222"), const_cast<char*>("Calle Hola 123"),
-                     const_cast<char*>("hola@gmail.com"), fechaAlta);
+  Socio obj2 =
+      Socio(const_cast<char*>("Lucila"), const_cast<char*>("G"),
+            const_cast<char*>("2222222"), const_cast<char*>("Calle Hola 123"),
+            const_cast<char*>("hola@gmail.com"), fechaAlta);
   obj2.guardar();
-  Socio obj3 = Socio(const_cast<char*>("Tomas"), const_cast<char*>("Mazza"), const_cast<char*>("3333333"), const_cast<char*>("Calle Estudio 2043"),
+  Socio obj3 = Socio(const_cast<char*>("Tomas"), const_cast<char*>("Mazza"),
+                     const_cast<char*>("3333333"),
+                     const_cast<char*>("Calle Estudio 2043"),
                      const_cast<char*>("estudio@gmail.com"), fechaAlta);
   obj3.guardar();
   crearArchivoSiNoExiste("prestamos.dat");

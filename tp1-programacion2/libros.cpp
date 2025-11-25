@@ -1,4 +1,5 @@
 #include "libros.h"
+#include "Validaciones.cpp"
 
 #include <cstdio>
 #include <cstring>
@@ -134,8 +135,7 @@ void Libros::buscarPorEditorial() {
   char editorialBuscada[30];
   cout << "Ingrese el nombre de la editorial a buscar: ";
   cin.ignore();  // limpiar buffer antes de getline
-  cin.getline(editorialBuscada, 30);
-
+  cargarCadena(editorialBuscada, 30);
   FILE* p = fopen("libros.dat", "rb");
   if (p == NULL) {
     cout << "No se pudo abrir el archivo de libros.\n";
