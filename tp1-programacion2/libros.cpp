@@ -9,31 +9,56 @@
 
 using namespace std;
 
-int Libros::siguienteId = 1;
-const int ID_NO_ENCONTRADO = -1;
-/// char* NOMBRE_ARCHIVO = const_cast<char*>("libros.dat");
+int Libros::siguienteId = Libros::calcularMaximoId();
+
+int Libros::calcularMaximoId() {
+  Libros aux;
+  FILE* p = fopen("libros.dat", "rb");
+  if (p == nullptr) {
+    return 1;
+  }
+
+  int maxId = 0;
+  while (fread(&aux, sizeof(Libros), 1, p)) {
+    if (aux.getIdLibro() > maxId) {
+      maxId = aux.getIdLibro();
+    }
+  }
+  fclose(p);
+  return ++maxId;
+}
 
 void Libros::cargar() {
   cout << "\n *** Alta de un Libro *** \n";
-  cout << "Ingrese el titulo del libro: ";
-  cin.sync();  // Limpiar el buffer de entrada antes de getline '\n'
-  cin.getline(titulo, 50);
-  cout << "Ingrese el autor del libro: ";
-  cin.getline(autor, 30);
-  cout << "Ingrese la editorial del libro: ";
-  cin.getline(editorial, 30);
+  this->cargarCamposModificables();
   fechaAlta.cargarFechaDelDia();
   eliminado = false;
 }
 
+void Libros::cargarCamposModificables() {
+  cout << "Ingrese el titulo del libro: ";
+  cin.sync();  // Limpiar el buffer de entrada antes de getline '\n'
+  cargarCadena(titulo, 50);
+  cout << "Ingrese el autor del libro: ";
+  cargarCadena(autor, 30);
+  cout << "Ingrese la editorial del libro: ";
+  cargarCadena(editorial, 30);
+  cout << "Ingrese el stock del libro: ";
+  do {
+    cin >> stock;
+    if (stock < 0) {
+      cout << "El stock no puede ser negativo. Intente nuevamente: ";
+    }
+  } while (stock < 0);
+}
 void Libros::mostrar() const {
-  if (!eliminado) {
-    cout << "ID: " << idLibro << " | Titulo: " << titulo
-         << " | Autor: " << autor << " | Editorial: " << editorial
-         << " | Fecha de alta ";
-    fechaAlta.mostrar();
-    cout << endl;
-  }
+  // if (!eliminado) {
+  cout << "ID: " << idLibro << " | Titulo: " << titulo << " | Autor: " << autor
+       << " | Editorial: " << editorial << " | Stock: " << stock
+       << " | Fecha de alta ";
+  fechaAlta.mostrar();
+  cout << endl;
+  //}
 }
 
 /// Archivo
@@ -193,6 +218,94 @@ void Libros::buscarPorTitulo() {
 
   fclose(p);
 }
+///
+///
+///
+
+bool Libros::modificarRegistroEnArchivo(int posicion,
+                                        const Libros& datosNuevos) {
+  // Abre en modo lectura/escritura binaria
+  FILE* pFILE = fopen("libros.dat", "rb+");
+  if (pFILE == nullptr) {
+    cout << "Error al abrir el archivo " << "libros.dat"
+         << " para modificacion." << endl;
+    return false;
+  }
+
+  // 1. Calcular el desplazamiento (offset) en bytes. Multiplicamos la
+  // 'posicion' (índice base 0) por el tamaño del objeto Libros
+  long desplazamiento = posicion * sizeof(Libros);
+
+  // 2. Posicionar el puntero del archivo. Movemos el puntero 'desplazamiento'
+  // bytes desde el inicio (SEEK_SET)
+  fseek(pFILE, desplazamiento, SEEK_SET);
+
+  // 3. Escribir los nuevos datos en esa posición Escribe 1 bloque de tamaño
+  // sizeof(Libros) desde la dirección de datosNuevos
+  size_t escritos = fwrite(&datosNuevos, sizeof(Libros), 1, pFILE);
+
+  fclose(pFILE);
+
+  if (escritos == 1) {
+    return true;  // Éxito
+  } else {
+    cout << "Error al escribir el registro en la posicion " << posicion << endl;
+    return false;  // Error de escritura
+  }
+}
+
+int Libros::getCantRegistros() {
+  FILE* pFILE = fopen("libros.dat", "rb");
+  if (pFILE == nullptr) {
+    return -1;
+  }
+  fseek(pFILE, 0, 2);
+  // fseek(pFILE, -sizeof(registro), SEEK_CUR);
+  int tamanio = ftell(pFILE);
+  fclose(pFILE);
+  return tamanio / sizeof(Libros);
+}
+
+int Libros::buscarPosicionDeRegistro(int idLibro) {
+  Libros obj;
+  int posicion = 0;
+  FILE* p = fopen("libros.dat", "rb");
+  if (p == nullptr) return -1;
+
+  while (fread(&obj, sizeof(Libros), 1, p)) {
+    if (obj.getIdLibro() == idLibro) {
+      fclose(p);
+      return posicion;  // Retorna la posición (índice base 0)
+    }
+    posicion++;  // Incrementa la posición por cada registro leído
+  }
+  fclose(p);
+  return -1;  // No se encontró el ID
+}
+
+void Libros::modificarRegistro() {
+  int idBuscado = 0;
+  cout << "Ingrese ID del libro a modificar: ";
+  cin >> idBuscado;
+  cin.ignore();
+  int posicion = Libros::buscarPosicionDeRegistro(idBuscado);
+  if (posicion < 0) {
+    cout << "El libro con ID " << idBuscado << " no existe." << endl;
+    return;
+  }
+
+  Libros registroExistente = buscar(idBuscado);
+  this->cargarCamposModificables();  // modifica los campos del objeto this
+
+  // Mantener el mismo ID y la la fecha de alta original
+  this->idLibro = idBuscado;
+  this->fechaAlta = registroExistente.getFechaAlta();
+  if (Libros::modificarRegistroEnArchivo(posicion, *this)) {
+    cout << "Registro de libro modificado exitosamente." << endl;
+  } else {
+    cout << "Error al modificar el registro de libro." << endl;
+  }
+}
 
 Libros Libros::buscar(int id) {
   Libros aux, objEncontrado;
@@ -211,4 +324,38 @@ Libros Libros::buscar(int id) {
   }
   fclose(p);
   return objEncontrado;
+}
+
+void Libros::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
+  int idBuscado = 0;
+  string mensajeAccion = estadoEsperado ? "activar" : "desactivar";
+  cout << "Ingrese ID del libro a " << mensajeAccion << ": ";
+  cin >> idBuscado;
+  cin.ignore();
+  int posicion = Libros::buscarPosicionDeRegistro(idBuscado);
+  if (posicion < 0) {
+    cout << "El libro con ID " << idBuscado << " no existe." << endl;
+    return;
+  }
+
+  Libros libroExistente = buscar(idBuscado);
+  if (libroExistente.getIdLibro() == Libros::ID_NO_ENCONTRADO) {
+    cout << "El libro con ID " << idBuscado
+         << " no existe. Cancelando prestamo..." << endl;
+    return;
+  }
+  if (libroExistente.getEliminado() == !estadoEsperado) {
+    cout << "El libro con ID " << idBuscado << " ya se encuentra en el estado "
+         << (estadoEsperado ? "activo." : "desactivado.") << endl;
+    return;
+  }
+  *this = libroExistente;
+  this->eliminado = !estadoEsperado;
+  if (Libros::modificarRegistroEnArchivo(posicion, *this)) {
+    cout << "Se pudo " << mensajeAccion
+         << " el registro exitosamente. Nuevo estado" << endl;
+    this->mostrar();
+  } else {
+    cout << "Error al " << mensajeAccion << " el registro de libro." << endl;
+  }
 }

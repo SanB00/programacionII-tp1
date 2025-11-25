@@ -54,8 +54,10 @@ void Prestamo::cargar() {
   } else {
     fechaPrestamo.cargarFechaDelDia();
   }
-  cout << "Fecha Devolucion: \n";
+  cout << "\nFecha Devolucion: \n";
   fechaDevolucion.cargarFechaManual();
+
+  this->guardar();
 }
 
 void Prestamo::mostrar() const {
@@ -77,6 +79,7 @@ bool Prestamo::guardar() {
   fwrite(this, sizeof(Prestamo), 1, p);
   cout << "Prestamo guardado con exito.\n";
   fclose(p);
+  this->mostrar();
   return true;
 }
 
