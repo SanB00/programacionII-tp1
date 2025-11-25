@@ -12,6 +12,7 @@ class Prestamo {
   Fecha fechaDevolucion;
 
  public:
+  // const static int ID_NO_ENCONTRADO = -1;
   void cargar();
   void mostrar() const;
 

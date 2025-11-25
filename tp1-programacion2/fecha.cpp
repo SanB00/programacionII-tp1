@@ -1,9 +1,8 @@
-#include "Fecha.h"
+#include "fecha.h"
 
 #include <iostream>
 #include <string>
 
-#include "Utils.h"
 #include "time.h"
 using namespace std;
 Fecha::Fecha(int d, int m, int a) {

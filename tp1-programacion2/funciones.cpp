@@ -161,7 +161,6 @@ void menuSocios() {
 
 void menuPrestamos() {
   int opcionSeleccionada;
-  bool comprobado = false;
   do {
     cout << "\n--- MENU PRESTAMOS ---\n";
     cout << "1. Alta\n";
