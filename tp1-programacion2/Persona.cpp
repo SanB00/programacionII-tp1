@@ -25,13 +25,13 @@ class Persona {
   void cargarCadena(char* palabra, int tamanio) {
     int i = 0;
     fflush(stdin);
-    for (i = 0; i < tamanio; i++) {
+    for (i = 0; i < tamanio-1; i++) {
       palabra[i] = cin.get();
       if (palabra[i] == '\n') {
         break;
       }
     }
-    palabra[i - 1] = '\0';
+    palabra[i] = '\0';
     fflush(stdin);
   }
 };

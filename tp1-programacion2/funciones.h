@@ -5,5 +5,6 @@ void menuLibros();
 void menuSocios();
 void menuPrestamos();
 void menuInformes();
+void generarArchivosNecesariosConDatosFicticios();
 
 #endif  // FUNCIONES_H

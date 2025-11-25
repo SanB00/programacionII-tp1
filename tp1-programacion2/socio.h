@@ -5,7 +5,7 @@
 class Socio : public Persona {
  private:
   int idSocio;
-  static int siguienteId;
+  static int siguienteId;  // Declaramos la variable estatica
   char telefono[10];
   char direccion[50];
   char correo[40];
@@ -14,9 +14,24 @@ class Socio : public Persona {
 
  public:
   Socio() : Persona("", "") {
-    idSocio = ++siguienteId;
+    idSocio = siguienteId;  // Asigna el ID actual
+    Socio::siguienteId++;   // Incrementa para el proximo socio
     eliminado = false;
   }
+  Socio(char* nom, char* ape, char* tel, char* dir, char* corr, Fecha fecha)
+      : Persona(nom, ape) {
+    idSocio = siguienteId;  // Asigna el ID actual
+    Socio::siguienteId++;
+    strncpy(telefono, tel, sizeof(telefono) - 1);
+    telefono[sizeof(telefono) - 1] = '\0';
+    strncpy(direccion, dir, sizeof(direccion) - 1);
+    direccion[sizeof(direccion) - 1] = '\0';
+    strncpy(correo, corr, sizeof(correo) - 1);
+    correo[sizeof(correo) - 1] = '\0';
+    fechaAlta = fecha;
+    eliminado = false;
+  }
+  static int calcularMaximoId();
   int getIdSocio() const { return idSocio; }
   bool getEliminado() const { return eliminado; }
   void setEliminado(bool e) { eliminado = e; }
@@ -25,8 +40,8 @@ class Socio : public Persona {
   void mostrar() const;
   Socio buscar(int id);
   Fecha getFechaAlta() { return fechaAlta; }
-  const char* getNombre() const{ return nombre; }
-  const char* getApellido() const{ return apellido; }
+  const char* getNombre() const { return nombre; }
+  const char* getApellido() const { return apellido; }
   /// Manejo de archivo
   bool guardar();
   bool leer(int pos);

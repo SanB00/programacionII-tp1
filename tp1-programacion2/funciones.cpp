@@ -1,11 +1,12 @@
 #include <iostream>
 #include <limits>
 
-#include "Utils.h"
 #include "Validaciones.cpp"
+#include "fecha.h"
 #include "libros.h"
 #include "prestamo.h"
 #include "socio.h"
+
 using namespace std;
 
 void menuLibros() {
@@ -246,4 +247,27 @@ void menuInformes() {
         break;
     }
   } while (opcionSeleccionada != 0);
+}
+
+void crearArchivoSiNoExiste(const char* nombreArchivo) {
+  FILE* p = fopen(nombreArchivo, "ab");
+  if (p != NULL) {
+    fclose(p);
+  }
+}
+
+void generarArchivosNecesariosConDatosFicticios() {
+  crearArchivoSiNoExiste("libros.dat");
+  crearArchivoSiNoExiste("socios.dat");
+  Fecha fechaAlta = Fecha(1, 9, 2025);
+  Socio obj = Socio("Juan", "Perez", "11111111", "Calle Falsa 123",
+                    "aaaa@mail.com", fechaAlta);
+  obj.guardar();
+  Socio obj2 = Socio("Lucila", "G", "2222222", "Calle Hola 123",
+                     "hola@gmail.com", fechaAlta);
+  obj2.guardar();
+  Socio obj3 = Socio("Tomas", "Mazza", "3333333", "Calle Estudio 2043",
+                     "estudio@gmail.com", fechaAlta);
+  obj3.guardar();
+  crearArchivoSiNoExiste("prestamos.dat");
 }

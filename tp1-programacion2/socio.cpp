@@ -5,7 +5,26 @@
 #include <limits>
 using namespace std;
 char* NOMBRE_ARCHIVO = {"socios.dat"};
-int Socio::siguienteId = 1;
+int Socio::siguienteId = Socio::calcularMaximoId();
+
+// obtener id siguiente y que no se repita en el archivo
+int Socio::calcularMaximoId() {
+  Socio aux;
+  FILE* p = fopen(NOMBRE_ARCHIVO, "rb");
+  if (p == nullptr) {
+    return 1;
+  }
+
+  int maxId = 0;
+  while (fread(&aux, sizeof(Socio), 1, p)) {
+    if (aux.getIdSocio() > maxId) {
+      maxId = aux.getIdSocio();
+    }
+  }
+  fclose(p);
+  return ++maxId;
+}
+
 void Socio::cargar() {
   cout << "\n *** Alta de un Socio *** \n";
   this->cargarCamposModificables();
@@ -19,9 +38,7 @@ void Socio::cargarCamposModificables() {
   cin.sync();
   cargarCadena(nombre, 30);
   cout << "Apellido: ";
-  char a[30];
-  cargarCadena(a, 29);
-  this->setApellido(a);
+  cargarCadena(apellido, 30);
   cout << "Telefono: ";
   cargarCadena(telefono, 10);
   cout << "Direccion: ";
@@ -30,13 +47,13 @@ void Socio::cargarCamposModificables() {
   cargarCadena(correo, 40);
 }
 void Socio::mostrar() const {
-  //if (!eliminado) {
-    cout << "ID: " << idSocio << " | Nombre: " << this->getNombre()
-         << " | Apellido: " << this->getApellido()
-         << " | Telefono: " << telefono << " | direccion: " << direccion
-         << " | Correo: " << correo << " | Fecha alta: " << fechaAlta.toString()
-         << " | Estado eliminado: " << eliminado << endl;
- // }
+  // if (!eliminado) {
+  cout << "ID: " << idSocio << " | Nombre: " << this->getNombre()
+       << " | Apellido: " << this->getApellido() << " | Telefono: " << telefono
+       << " | direccion: " << direccion << " | Correo: " << correo
+       << " | Fecha alta: " << fechaAlta.toString()
+       << " | Estado eliminado: " << eliminado << endl;
+  // }
 }
 
 /// Archivo
@@ -166,12 +183,13 @@ void Socio::modificarRegistro() {
 }
 
 Socio Socio::buscar(int id) {
-  Socio obj;
+  Socio aux, objEncontrado;
   bool comprobado = false;
   FILE* p = fopen(NOMBRE_ARCHIVO, "rb");
-  while (fread(&obj, sizeof(Socio), 1, p)) {
-    if (obj.getIdSocio() == id) {
-      obj.mostrar();
+  while (fread(&aux, sizeof(Socio), 1, p)) {
+    if (aux.getIdSocio() == id) {
+      objEncontrado = aux;
+      objEncontrado.mostrar();
       comprobado = true;
     }
   }
@@ -179,7 +197,7 @@ Socio Socio::buscar(int id) {
     cout << "No existe registros de socio con ID: " << id << endl;
   }
   fclose(p);
-  return obj;
+  return objEncontrado;
 }
 
 void Socio::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
@@ -195,8 +213,14 @@ void Socio::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
   }
 
   Socio socioExistente = buscar(idBuscado);
+
+  if (socioExistente.getEliminado() == !estadoEsperado) {
+    cout << "El socio con ID " << idBuscado << " ya se encuentra en el estado "
+         << (estadoEsperado ? "activo." : "desactivado.") << endl;
+    return;
+  }
   *this = socioExistente;
-  this->eliminado = estadoEsperado;
+  this->eliminado = !estadoEsperado;
   if (Socio::modificarRegistroEnArchivo(posicion, *this)) {
     cout << "Se pudo " << mensajeAccion
          << " el registro exitosamente. Nuevo estado" << endl;
