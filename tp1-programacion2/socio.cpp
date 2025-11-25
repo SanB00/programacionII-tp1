@@ -9,38 +9,34 @@ int Socio::siguienteId = 1;
 void Socio::cargar() {
   cout << "\n *** Alta de un Socio *** \n";
   this->cargarCamposModificables();
-  cout << "fecha de alta del socio: " << endl;
+  cout << "Fecha de alta del socio: " << endl;
   fechaAlta.cargarFechaDelDia();
   eliminado = false;
 }
 
 void Socio::cargarCamposModificables() {
-  cin.ignore();
   cout << "Nombre: ";
   cin.sync();
-  string n;
-  std::getline(std::cin, n);
-  this->setNombre(n);
+  cargarCadena(nombre, 30);
   cout << "Apellido: ";
-  string a;
-  std::getline(std::cin, a);
+  char a[30];
+  cargarCadena(a, 29);
   this->setApellido(a);
-
   cout << "Telefono: ";
-  cin.getline(telefono, 15);
-  cout << "direccion: ";
-  cin.getline(direccion, 50);
+  cargarCadena(telefono, 10);
+  cout << "Direccion: ";
+  cargarCadena(direccion, 50);
   cout << "correo electronico: ";
-  cin.getline(correo, 40);
+  cargarCadena(correo, 40);
 }
 void Socio::mostrar() const {
-  if (!eliminado) {
+  //if (!eliminado) {
     cout << "ID: " << idSocio << " | Nombre: " << this->getNombre()
          << " | Apellido: " << this->getApellido()
          << " | Telefono: " << telefono << " | direccion: " << direccion
          << " | Correo: " << correo << " | Fecha alta: " << fechaAlta.toString()
          << " | Estado eliminado: " << eliminado << endl;
-  }
+ // }
 }
 
 /// Archivo

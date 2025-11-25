@@ -6,7 +6,7 @@ class Socio : public Persona {
  private:
   int idSocio;
   static int siguienteId;
-  char telefono[15];
+  char telefono[10];
   char direccion[50];
   char correo[40];
   Fecha fechaAlta;
@@ -25,8 +25,8 @@ class Socio : public Persona {
   void mostrar() const;
   Socio buscar(int id);
   Fecha getFechaAlta() { return fechaAlta; }
-  string getNombre() const { return Persona::getNombre(); }
-  string getApellido() const { return Persona::getApellido(); }
+  const char* getNombre() const{ return nombre; }
+  const char* getApellido() const{ return apellido; }
   /// Manejo de archivo
   bool guardar();
   bool leer(int pos);
