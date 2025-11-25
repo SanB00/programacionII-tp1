@@ -14,7 +14,11 @@ class Socio : public Persona {
 
  public:
   const static int ID_NO_ENCONTRADO = -1;
-  Socio() : Persona("", "") {
+  Socio() : Persona(const_cast<char*>(""), const_cast<char*>("")), idSocio(siguienteId++), eliminado(false) {
+    // Inicializar arrays de char vacios o con valores por defecto si es necesario
+    telefono[0] = '\0';
+    direccion[0] = '\0';
+    correo[0] = '\0';
     idSocio = siguienteId;  // Asigna el ID actual
     Socio::siguienteId++;   // Incrementa para el proximo socio
     eliminado = false;

@@ -1,5 +1,7 @@
-using namespace std;
 #include <iostream>
+#include <cstring> // Incluir esta cabecera para usar strncpy
+
+using namespace std;
 
 class Persona {
  protected:

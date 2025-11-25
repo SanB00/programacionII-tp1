@@ -6,7 +6,7 @@
 
 using namespace std;
 #include "validaciones.cpp"
-char* NOMBRE_ARCHIVO = {"socios.dat"};
+char* NOMBRE_ARCHIVO = const_cast<char*>("socios.dat");
 int Socio::siguienteId = Socio::calcularMaximoId();
 
 // obtener id siguiente y que no se repita en el archivo
@@ -177,6 +177,7 @@ void Socio::modificarRegistro() {
   // Mantener el mismo ID y la la fecha de alta original
   this->idSocio = idBuscado;
   this->fechaAlta = socioExistente.getFechaAlta();
+  this->eliminado = socioExistente.getEliminado();
   if (Socio::modificarRegistroEnArchivo(posicion, *this)) {
     cout << "Registro de socio modificado exitosamente." << endl;
   } else {
