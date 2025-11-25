@@ -6,14 +6,18 @@
 
 #include "fecha.h"
 #include "socio.h"
-//using namespace std;
 
 void Prestamo::cargar() {
   cout << "ID Socio: ";
   cin >> idSocio;
   cout << "Verificando existencia de socio..." << endl;
-  // Socio::buscar(idSocio);
-
+  Socio aux, objSocio;
+  objSocio = aux.buscar(idSocio);
+  if (objSocio.getIdSocio() == Socio::ID_NO_ENCONTRADO) {
+    cout << "El socio con ID " << idSocio
+         << " no existe. Cancelando prestamo..." << endl;
+    return;
+  }
   cout << "ID Libro: ";
   cin >> idLibro;
   cout << "Fecha Prestamo: \n";
@@ -227,7 +231,7 @@ void Prestamo::cantidadPrestamosPorAnio() {
     int cantidad = Prestamo::cantidadPrestamosPorMes(mes, anio);
     cout << "Mes " << mes << " (" << Fecha::mostrarMesEnLetras(mes)
          << ") : " << cantidad << " prestamos\n ";
-                  totalPrestado += cantidad;
+    totalPrestado += cantidad;
   }
   cout << "Total de prestamos en el anio " << anio << ": " << totalPrestado
        << " prestamos\n";

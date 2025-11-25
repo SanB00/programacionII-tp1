@@ -1,12 +1,14 @@
 #include <iostream>
 
 #include "funciones.h"
+#include "Validaciones.cpp"
 using namespace std;
 
 int main() {
   generarArchivosNecesariosConDatosFicticios();
   int opcionSeleccionada;
   do {
+    limpiarPantalla();
     cout << "\n===== MENU BIBLIOTECA =====\n";
     cout << "1. Gestionar Libros\n";
     cout << "2. Gestionar Socios\n";

@@ -13,6 +13,7 @@ class Socio : public Persona {
   bool eliminado;
 
  public:
+  const static int ID_NO_ENCONTRADO = -1;
   Socio() : Persona("", "") {
     idSocio = siguienteId;  // Asigna el ID actual
     Socio::siguienteId++;   // Incrementa para el proximo socio
@@ -33,6 +34,7 @@ class Socio : public Persona {
   }
   static int calcularMaximoId();
   int getIdSocio() const { return idSocio; }
+  void setIdSocio(int id) { idSocio = id; }
   bool getEliminado() const { return eliminado; }
   void setEliminado(bool e) { eliminado = e; }
 

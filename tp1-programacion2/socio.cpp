@@ -3,7 +3,9 @@
 #include <cstdio>
 #include <iostream>
 #include <limits>
+
 using namespace std;
+#include "validaciones.cpp"
 char* NOMBRE_ARCHIVO = {"socios.dat"};
 int Socio::siguienteId = Socio::calcularMaximoId();
 
@@ -195,6 +197,7 @@ Socio Socio::buscar(int id) {
   }
   if (comprobado == false) {
     cout << "No existe registros de socio con ID: " << id << endl;
+    objEncontrado.setIdSocio(ID_NO_ENCONTRADO);
   }
   fclose(p);
   return objEncontrado;
@@ -213,7 +216,11 @@ void Socio::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
   }
 
   Socio socioExistente = buscar(idBuscado);
-
+  if (socioExistente.getIdSocio() == Socio::ID_NO_ENCONTRADO) {
+    cout << "El socio con ID " << idSocio
+         << " no existe. Cancelando prestamo..." << endl;
+    return;
+  }
   if (socioExistente.getEliminado() == !estadoEsperado) {
     cout << "El socio con ID " << idBuscado << " ya se encuentra en el estado "
          << (estadoEsperado ? "activo." : "desactivado.") << endl;

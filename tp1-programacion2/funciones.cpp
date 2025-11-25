@@ -174,8 +174,7 @@ void menuPrestamos() {
     switch (opcionSeleccionada) {
       case 1: {
         Prestamo obj;
-        obj.cargar();
-        obj.guardar();
+        //obj.darDeAlta();
         break;
       }
 
