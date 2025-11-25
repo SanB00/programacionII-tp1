@@ -226,8 +226,9 @@ void Prestamo::cantidadPrestamosPorAnio() {
   cout << "Cantidad de prestamos por mes en el anio " << anio << ":\n";
   for (int mes = 1; mes <= 12; mes++) {
     int cantidad = Prestamo::cantidadPrestamosPorMes(mes, anio);
-    cout << "Mes " << mes << ": " << cantidad << " prestamos\n";
-    totalPrestado += cantidad;
+    cout << "Mes " << mes << " (" << Fecha::mostrarMesEnLetras(mes)
+         << ") : " << cantidad << " prestamos\n ";
+                  totalPrestado += cantidad;
   }
   cout << "Total de prestamos en el anio " << anio << ": " << totalPrestado
        << " prestamos\n";
