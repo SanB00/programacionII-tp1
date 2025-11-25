@@ -247,6 +247,6 @@ void Prestamo::cantidadPrestamosPorAnioYMes() {
   }
 
   int cantidad = Prestamo::cantidadPrestamosPorMes(mes, anio);
-  cout << "Anio " << anio << "Mes " << mes << ": " << cantidad
+  cout << "Anio " << anio << " Mes " << mes << ": " << cantidad
        << " prestamos\n";
 }

@@ -27,6 +27,7 @@ class Prestamo {
   static void buscarLibroMasPrestado();
   static int cantidadPrestamosPorMes(int mes, int anio);
   static void cantidadPrestamosPorAnio();
+  static void cantidadPrestamosPorAnioYMes();
 };
 
 #endif  // PRESTAMO_H

@@ -5,7 +5,7 @@
 #include "Utils.h"
 #include "time.h"
 using namespace std;
-void Fecha::Fecha(int d, int m, int a) {
+Fecha::Fecha(int d, int m, int a) {
   dia = d;
   mes = m;
   anio = a;
