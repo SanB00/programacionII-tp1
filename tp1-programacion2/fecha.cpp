@@ -34,7 +34,6 @@ void Fecha::cargarFechaManual() {
     cargarFechaManual();
   }
 }
-
 void Fecha::mostrar() const { cout << dia << "/" << mes << "/" << anio; }
 
 /*Corrobora si la fecha es válida*/

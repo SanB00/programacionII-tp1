@@ -16,8 +16,8 @@ class Persona {
     cout << "Nombre: " << nombre << ", Apellido: " << apellido << endl;
   }
 
-  string getNombre() { return nombre; }
-  string getApellido() { return apellido; }
+  string getNombre() const { return nombre; }
+  string getApellido() const { return apellido; }
   void setNombre(string nom) { nombre = nom; }
   void setApellido(string ape) { apellido = ape; }
 };

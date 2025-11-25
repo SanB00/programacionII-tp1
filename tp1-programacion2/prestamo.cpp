@@ -6,10 +6,9 @@
 
 #include "fecha.h"
 #include "socio.h"
-using namespace std;
+//using namespace std;
 
 void Prestamo::cargar() {
-  bool entro = false;
   cout << "ID Socio: ";
   cin >> idSocio;
   cout << "Verificando existencia de socio..." << endl;

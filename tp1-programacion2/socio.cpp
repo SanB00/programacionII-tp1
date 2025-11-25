@@ -4,9 +4,18 @@
 #include <iostream>
 #include <limits>
 using namespace std;
+char* NOMBRE_ARCHIVO = {"socios.dat"};
 int Socio::siguienteId = 1;
 void Socio::cargar() {
   cout << "\n *** Alta de un Socio *** \n";
+  this->cargarCamposModificables();
+  cout << "fecha de alta del socio: " << endl;
+  fechaAlta.cargarFechaDelDia();
+  eliminado = false;
+}
+
+void Socio::cargarCamposModificables() {
+  cin.ignore();
   cout << "Nombre: ";
   cin.sync();
   string n;
@@ -23,43 +32,15 @@ void Socio::cargar() {
   cin.getline(direccion, 50);
   cout << "correo electronico: ";
   cin.getline(correo, 40);
-  cout << "fecha de alta del socio: " << endl;
-  fechaalta.cargarFechaDelDia();
-  eliminado = false;
 }
-
 void Socio::mostrar() const {
   if (!eliminado) {
-    cout << "ID: " << idSocio << " | ";
-    this->mostrarNombreApellido();
-    cout << " | Telefono: " << telefono << " | direccion: " << direccion
-         << " | Correo: " << correo << " | Fecha alta: ";
-    fechaalta.mostrar();
-    cout << endl;
+    cout << "ID: " << idSocio << " | Nombre: " << this->getNombre()
+         << " | Apellido: " << this->getApellido()
+         << " | Telefono: " << telefono << " | direccion: " << direccion
+         << " | Correo: " << correo << " | Fecha alta: " << fechaAlta.toString()
+         << " | Estado eliminado: " << eliminado << endl;
   }
-}
-
-int Socio::getIdSocio() const { return idSocio; }
-
-bool Socio::getEliminado() const { return eliminado; }
-
-void Socio::setEliminado(bool e) { eliminado = e; }
-
-Socio Socio::buscar(int id) {
-  Socio obj;
-  bool comprobado = false;
-  FILE* p = fopen("socios.dat", "rb");
-  while (fread(&obj, sizeof(Socio), 1, p)) {
-    if (obj.getIdSocio() == id) {
-      obj.mostrar();
-      comprobado = true;
-    }
-  }
-  if (comprobado == false) {
-    cout << "no existe socio con id: " << id << endl;
-  }
-  fclose(p);
-  return obj;
 }
 
 /// Archivo
@@ -102,4 +83,129 @@ bool Socio::existeId(int id) {
 
   fclose(p);
   return false;
+}
+
+bool Socio::modificarRegistroEnArchivo(int posicion, const Socio& datosNuevos) {
+  // Abre en modo lectura/escritura binaria
+  FILE* pFILE = fopen(NOMBRE_ARCHIVO, "rb+");
+  if (pFILE == nullptr) {
+    cout << "Error al abrir el archivo " << NOMBRE_ARCHIVO
+         << " para modificacion." << endl;
+    return false;
+  }
+
+  // 1. Calcular el desplazamiento (offset) en bytes
+  // Multiplicamos la 'posicion' (índice base 0) por el tamaño del objeto Socio
+  long desplazamiento = posicion * sizeof(Socio);
+
+  // 2. Posicionar el puntero del archivo
+  // Movemos el puntero 'desplazamiento' bytes desde el inicio (SEEK_SET)
+  fseek(pFILE, desplazamiento, SEEK_SET);
+
+  // 3. Escribir los nuevos datos en esa posición
+  // Escribe 1 bloque de tamaño sizeof(Socio) desde la dirección de datosNuevos
+  size_t escritos = fwrite(&datosNuevos, sizeof(Socio), 1, pFILE);
+
+  fclose(pFILE);
+
+  if (escritos == 1) {
+    return true;  // Éxito
+  } else {
+    cout << "Error al escribir el registro en la posicion " << posicion << endl;
+    return false;  // Error de escritura
+  }
+}
+
+int Socio::getCantRegistros() {
+  FILE* pFILE = fopen(NOMBRE_ARCHIVO, "rb");
+  if (pFILE == nullptr) {
+    return -1;
+  }
+  fseek(pFILE, 0, 2);
+  // fseek(pFILE, -sizeof(registro), SEEK_CUR);
+  int tamanio = ftell(pFILE);
+  fclose(pFILE);
+  return tamanio / sizeof(Socio);
+}
+
+int Socio::buscarPosicionDeRegistro(int idSocio) {
+  Socio obj;
+  int posicion = 0;
+  FILE* p = fopen(NOMBRE_ARCHIVO, "rb");
+  if (p == nullptr) return -1;
+
+  while (fread(&obj, sizeof(Socio), 1, p)) {
+    if (obj.getIdSocio() == idSocio) {
+      fclose(p);
+      return posicion;  // Retorna la posición (índice base 0)
+    }
+    posicion++;  // Incrementa la posición por cada registro leído
+  }
+  fclose(p);
+  return -1;  // No se encontró el ID
+}
+
+void Socio::modificarRegistro() {
+  int idBuscado = 0;
+  cout << "Ingrese ID del socio a modificar: ";
+  cin >> idBuscado;
+  cin.ignore();
+  int posicion = Socio::buscarPosicionDeRegistro(idBuscado);
+  if (posicion < 0) {
+    cout << "El socio con ID " << idBuscado << " no existe." << endl;
+    return;
+  }
+
+  Socio socioExistente = buscar(idBuscado);
+  Socio::cargarCamposModificables();  // modifica los campos del objeto this
+
+  // Mantener el mismo ID y la la fecha de alta original
+  this->idSocio = idBuscado;
+  this->fechaAlta = socioExistente.getFechaAlta();
+  if (Socio::modificarRegistroEnArchivo(posicion, *this)) {
+    cout << "Registro de socio modificado exitosamente." << endl;
+  } else {
+    cout << "Error al modificar el registro de socio." << endl;
+  }
+}
+
+Socio Socio::buscar(int id) {
+  Socio obj;
+  bool comprobado = false;
+  FILE* p = fopen(NOMBRE_ARCHIVO, "rb");
+  while (fread(&obj, sizeof(Socio), 1, p)) {
+    if (obj.getIdSocio() == id) {
+      obj.mostrar();
+      comprobado = true;
+    }
+  }
+  if (comprobado == false) {
+    cout << "No existe registros de socio con ID: " << id << endl;
+  }
+  fclose(p);
+  return obj;
+}
+
+void Socio::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
+  int idBuscado = 0;
+  string mensajeAccion = estadoEsperado ? "activar" : "desactivar";
+  cout << "Ingrese ID del socio a " << mensajeAccion << ": ";
+  cin >> idBuscado;
+  cin.ignore();
+  int posicion = Socio::buscarPosicionDeRegistro(idBuscado);
+  if (posicion < 0) {
+    cout << "El socio con ID " << idBuscado << " no existe." << endl;
+    return;
+  }
+
+  Socio socioExistente = buscar(idBuscado);
+  *this = socioExistente;
+  this->eliminado = estadoEsperado;
+  if (Socio::modificarRegistroEnArchivo(posicion, *this)) {
+    cout << "Se pudo " << mensajeAccion
+         << " el registro exitosamente. Nuevo estado" << endl;
+    this->mostrar();
+  } else {
+    cout << "Error al " << mensajeAccion << " el registro de socio." << endl;
+  }
 }

@@ -98,9 +98,10 @@ void menuSocios() {
     cout << "\n--- MENU SOCIOS ---\n";
     cout << "1. Alta\n";
     cout << "2. Listar\n";
-    cout << "3. Baja Logica\n";
-    cout << "4. Buscar por ID\n";
-    cout << "5. Modificar\n";
+    cout << "3. Buscar por ID\n";
+    cout << "4. Modificar\n";
+    cout << "5. Activar\n";
+    cout << "6. Desactivar (Baja Logica)\n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
@@ -123,27 +124,7 @@ void menuSocios() {
         }
         break;
       }
-
       case 3: {
-        int id;
-        cout << "Ingrese ID socio a eliminar: ";
-        cin >> id;
-        cin.ignore();
-        Socio obj;
-        int pos = 0;
-        while (obj.leer(pos)) {
-          if (obj.getIdSocio() == id && !obj.getEliminado()) {
-            obj.setEliminado(true);
-            obj.modificar(pos);
-            cout << "Socio dado de baja.\n";
-            break;
-          }
-          pos++;
-        }
-        break;
-      }
-
-      case 4: {
         int id;
         cout << "Ingrese ID del socio a buscar: ";
         cin >> id;
@@ -151,18 +132,21 @@ void menuSocios() {
         obj.buscar(id);
         break;
       }
-      case 5: {
-        int id;
-        cout << "Ingrese ID del socio a modificar: ";
-        cin >> id;
+      case 4: {
         Socio obj;
-        obj.buscar(id);
-        cout << "Ingrese los nuevos datos del socio:\n";
-        obj.cargar();
-        obj.modificar(id);
+        obj.modificarRegistro();
         break;
       }
-
+      case 5: {
+        Socio obj;
+        obj.asignarEstadoDeRegistroComoActivo(true);
+        break;
+      }
+      case 6: {
+        Socio obj;
+        obj.asignarEstadoDeRegistroComoActivo(false);
+        break;
+      }
       case 0:
         cout << "Volviendo al menu principal...\n";
         break;

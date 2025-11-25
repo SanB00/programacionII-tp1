@@ -10,6 +10,9 @@ class Fecha {
   Fecha(int d = 1, int m = 1, int a = 1900);
   void cargarFechaManual();
   void mostrar() const;
+  string toString() const {
+    return to_string(dia) + "/" + to_string(mes) + "/" + to_string(anio);
+  }
   bool esUnaFechaValida() const;
   void cargarFechaDelDia();
   int getMes() const { return mes; }

@@ -9,7 +9,7 @@ class Socio : public Persona {
   char telefono[15];
   char direccion[50];
   char correo[40];
-  Fecha fechaalta;
+  Fecha fechaAlta;
   bool eliminado;
 
  public:
@@ -17,19 +17,28 @@ class Socio : public Persona {
     idSocio = ++siguienteId;
     eliminado = false;
   }
+  int getIdSocio() const { return idSocio; }
+  bool getEliminado() const { return eliminado; }
+  void setEliminado(bool e) { eliminado = e; }
+
   void cargar();
   void mostrar() const;
-  int getIdSocio() const;
-  bool getEliminado() const;
-  void setEliminado(bool e);
   Socio buscar(int id);
-
+  Fecha getFechaAlta() { return fechaAlta; }
+  string getNombre() const { return Persona::getNombre(); }
+  string getApellido() const { return Persona::getApellido(); }
   /// Manejo de archivo
   bool guardar();
   bool leer(int pos);
   bool modificar(int pos);
   bool existeId(int id);
-  void mostrarNombreApellido() const { Persona::mostrarNombreApellido(); }
+  void mostrarNombreApellido() { Persona::mostrarNombreApellido(); }
+  void modificarRegistro();
+  void asignarEstadoDeRegistroComoActivo(bool estadoEsperado);
+  bool modificarRegistroEnArchivo(int posicion, const Socio& datosNuevos);
+  int getCantRegistros();
+  int buscarPosicionDeRegistro(int idSocio);
+  void cargarCamposModificables();
 };
 
 #endif  // SOCIO_H
