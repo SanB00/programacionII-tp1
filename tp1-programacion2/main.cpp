@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-  generarArchivosNecesariosConDatosFicticios();
+  //generarArchivosNecesariosConDatosFicticios();
   int opcionSeleccionada;
   do {
     cout << "\n===== MENU BIBLIOTECA =====\n";
