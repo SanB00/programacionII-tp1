@@ -12,6 +12,7 @@ using namespace std;
 void menuLibros() {
   int opcionSeleccionada;
   do {
+    system("cls");
     cout << "\n--- MENU LIBROS ---\n";
     cout << "1. Alta de un Libro\n";
     cout << "2. Listar Libros\n";
@@ -24,7 +25,7 @@ void menuLibros() {
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
     cin.ignore();
-
+    system("cls");
     switch (opcionSeleccionada) {
       default:
         cout << "Opcion invalida. Intente nuevamente.\n";
@@ -89,15 +90,17 @@ void menuLibros() {
 
       case 0:
         cout << "Volviendo al menu principal...\n";
+        return;
         break;
     }
-
+    system("pause");
   } while (opcionSeleccionada != 0);
 }
 
 void menuSocios() {
   int opcionSeleccionada;
   do {
+    system("cls");
     cout << "\n--- MENU SOCIOS ---\n";
     cout << "1. Alta\n";
     cout << "2. Listar\n";
@@ -109,6 +112,7 @@ void menuSocios() {
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
     cin.ignore();
+    system("cls");
     switch (opcionSeleccionada) {
       case 1: {
         Socio obj;
@@ -152,18 +156,20 @@ void menuSocios() {
       }
       case 0:
         cout << "Volviendo al menu principal...\n";
+        return;
         break;
       default:
         cout << "Opcion invalida. Intente nuevamente.\n";
         break;
     }
-
+    system("pause");
   } while (opcionSeleccionada != 0);
 }
 
 void menuPrestamos() {
   int opcionSeleccionada;
   do {
+    system("cls");
     cout << "\n--- MENU PRESTAMOS ---\n";
     cout << "1. Alta\n";
     cout << "2. Listar\n";
@@ -172,6 +178,7 @@ void menuPrestamos() {
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
     cin.ignore();
+    system("cls");
     switch (opcionSeleccionada) {
       case 1: {
         Prestamo obj;
@@ -202,18 +209,20 @@ void menuPrestamos() {
 
       case 0:
         cout << "Volviendo al menu...\n";
+        return;
         break;
 
       default:
         cout << "Opcion invalida. Intente nuevamente.\n";
         break;
     }
-
+    system("pause");
   } while (opcionSeleccionada != false);
 }
 void menuInformes() {
   int opcionSeleccionada;
   do {
+    system("cls");
     cout << "\n--- MENU INFORMES ---\n";
     cout << "1. Socio con mas libros prestados\n";
     cout << "2. Libro mas prestado\n";
@@ -223,6 +232,7 @@ void menuInformes() {
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
     cin.ignore();
+    system("cls");
     switch (opcionSeleccionada) {
       case 1: {
         Prestamo::buscarSocioConMasLibros();
@@ -241,11 +251,13 @@ void menuInformes() {
       }
       case 0:
         cout << "Volviendo al menu principal...\n";
+        return;
         break;
       default:
         cout << "Opcion invalida. Intente nuevamente.\n";
         break;
     }
+    system("pause");
   } while (opcionSeleccionada != 0);
 }
 
