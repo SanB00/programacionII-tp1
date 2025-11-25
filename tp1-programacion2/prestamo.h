@@ -5,6 +5,8 @@
 
 class Prestamo {
  private:
+  static int siguienteId;
+
   int idPrestamo;
   int idSocio;
   int idLibro;
@@ -12,13 +14,19 @@ class Prestamo {
   Fecha fechaDevolucion;
 
  public:
-  // const static int ID_NO_ENCONTRADO = -1;
+  Prestamo() {
+    idPrestamo = siguienteId;
+    Prestamo::siguienteId++;
+    //  eliminado = false;
+  }
+  static int calcularMaximoId();
+
   void cargar();
   void mostrar() const;
 
-  int getIdPrestamo() const;
-  int getIdSocio() const;
-  int getIdLibro() const;
+  int getIdPrestamo() const { return idPrestamo; };
+  int getIdSocio() const { return idSocio; }
+  int getIdLibro() const { return idLibro; }
 
   /// Manejo de archivo
   bool guardar();

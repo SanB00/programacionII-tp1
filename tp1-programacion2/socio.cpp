@@ -30,9 +30,11 @@ int Socio::calcularMaximoId() {
 void Socio::cargar() {
   cout << "\n *** Alta de un Socio *** \n";
   this->cargarCamposModificables();
-  cout << "Fecha de alta del socio: " << endl;
+  cout << "Fecha de alta del socio: ";
   fechaAlta.cargarFechaDelDia();
   eliminado = false;
+
+  this->guardar();
 }
 
 void Socio::cargarCamposModificables() {
@@ -45,7 +47,7 @@ void Socio::cargarCamposModificables() {
   cargarCadena(telefono, 10);
   cout << "Direccion: ";
   cargarCadena(direccion, 50);
-  cout << "correo electronico: ";
+  cout << "Correo electronico: ";
   cargarCadena(correo, 40);
 }
 void Socio::mostrar() const {

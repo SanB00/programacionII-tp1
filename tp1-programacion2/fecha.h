@@ -14,6 +14,20 @@ class Fecha {
     return to_string(dia) + "/" + to_string(mes) + "/" + to_string(anio);
   }
   bool esUnaFechaValida() const;
+  bool esAnteriorA(Fecha fechaPosterior) const {
+    if (anio < fechaPosterior.anio) {
+      return true;
+    } else if (anio == fechaPosterior.anio) {
+      if (mes < fechaPosterior.mes) {
+        return true;
+      } else if (mes == fechaPosterior.mes) {
+        if (dia < fechaPosterior.dia) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
   void cargarFechaDelDia();
   int getMes() const { return mes; }
   int getAnio() const { return anio; }

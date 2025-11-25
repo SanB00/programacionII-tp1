@@ -16,11 +16,13 @@ void menuLibros() {
     cout << "\n--- MENU LIBROS ---\n";
     cout << "1. Alta de un Libro\n";
     cout << "2. Listar Libros\n";
-    cout << "3. Baja Logica de un Libro\n";
-    cout << "4. Buscar por ID\n";
-    cout << "5  Buscar por Titulo\n";
-    cout << "6. Buscar por Autor\n";
-    cout << "7. Buscar por Editorial\n";
+    cout << "3. Buscar por ID\n";
+    cout << "4. Modificar\n";
+    cout << "5. Activar\n";
+    cout << "6. Desactivar (Baja Logica)\n";
+    cout << "7  Buscar por Titulo\n";
+    cout << "8. Buscar por Autor\n";
+    cout << "9. Buscar por Editorial\n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
@@ -33,7 +35,6 @@ void menuLibros() {
       case 1: {
         Libros obj;
         obj.cargar();
-        obj.guardar();
         break;
       }
 
@@ -50,40 +51,37 @@ void menuLibros() {
       }
       case 3: {
         int id;
-        cout << "Ingrese ID libro a eliminar: ";
+        cout << "Ingrese ID libro a buscar: ";
         cin >> id;
         cin.ignore();
         Libros obj;
-        int pos = 0;
-        while (obj.leer(pos)) {
-          if (obj.getIdLibro() == id && !obj.getEliminado()) {
-            obj.setEliminado(true);
-            obj.modificar(pos);
-            cout << "Libro dado de baja.\n";
-            break;
-          }
-          pos++;
-        }
+        obj.buscar(id);
         break;
       }
-
       case 4: {
-        int id;
-        cout << "Ingrese ID del libro a buscar: ";
-        cin >> id;
-        cin.ignore();
-        Libros::buscarPorId(id);
+        Libros obj;
+        obj.modificarRegistro();
         break;
       }
       case 5: {
-        Libros::buscarPorTitulo();
+        Libros obj;
+        obj.asignarEstadoDeRegistroComoActivo(true);
         break;
       }
       case 6: {
-        Libros::buscarPorAutor();
+        Libros obj;
+        obj.asignarEstadoDeRegistroComoActivo(false);
         break;
       }
       case 7: {
+        Libros::buscarPorTitulo();
+        break;
+      }
+      case 8: {
+        Libros::buscarPorAutor();
+        break;
+      }
+      case 9: {
         Libros::buscarPorEditorial();
         break;
       }
@@ -117,7 +115,6 @@ void menuSocios() {
       case 1: {
         Socio obj;
         obj.cargar();
-        obj.guardar();
         break;
       }
       case 2: {
