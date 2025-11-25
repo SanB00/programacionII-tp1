@@ -11,6 +11,24 @@
 
 const int ID_NO_ENCONTRADO = -1;
 
+int Prestamo::siguienteId = Prestamo::calcularMaximoId();
+
+int Prestamo::calcularMaximoId() {
+  Prestamo aux;
+  FILE* p = fopen("prestamos.dat", "rb");
+  if (p == nullptr) {
+    return 1;
+  }
+
+  int maxId = 0;
+  while (fread(&aux, sizeof(Prestamo), 1, p)) {
+    if (aux.getIdPrestamo() > maxId) {
+      maxId = aux.getIdPrestamo();
+    }
+  }
+  fclose(p);
+  return ++maxId;
+}
 void Prestamo::cargar() {
   cout << "ID Socio: ";
   cin >> idSocio;
@@ -43,7 +61,6 @@ void Prestamo::cargar() {
          << " esta eliminado. Cancelando prestamo..." << endl;
     return;
   }
-
   cout << "Fecha Prestamo (1: Fecha manual, Calquier tecla para fecha del "
           "dia): \n";
   int opcionFechaPrestamo = 0;
@@ -55,9 +72,17 @@ void Prestamo::cargar() {
     fechaPrestamo.cargarFechaDelDia();
   }
   cout << "\nFecha Devolucion: \n";
-  fechaDevolucion.cargarFechaManual();
-
-  this->guardar();
+  bool laFechaDevolucionEsAnteriorAlPrestamo = false;
+  do {
+    fechaDevolucion.cargarFechaManual();
+    if (fechaDevolucion.esAnteriorA(fechaPrestamo)) {
+      cout << "La fecha de devolucion no puede ser anterior a la fecha de "
+              "prestamo. Intente nuevamente.\n";
+      laFechaDevolucionEsAnteriorAlPrestamo = true;
+    } else {
+      laFechaDevolucionEsAnteriorAlPrestamo = false;
+    }
+  } while (laFechaDevolucionEsAnteriorAlPrestamo);this->guardar();
 }
 
 void Prestamo::mostrar() const {
@@ -69,9 +94,6 @@ void Prestamo::mostrar() const {
   cout << endl;
 }
 
-int Prestamo::getIdPrestamo() const { return idPrestamo; }
-int Prestamo::getIdSocio() const { return idSocio; }
-int Prestamo::getIdLibro() const { return idLibro; }
 
 bool Prestamo::guardar() {
   FILE* p = fopen("prestamos.dat", "ab");
