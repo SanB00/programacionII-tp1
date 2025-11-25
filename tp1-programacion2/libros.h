@@ -1,6 +1,7 @@
 #ifndef LIBROS_H
 #define LIBROS_H
 #include "fecha.h"
+#include <cstring>
 
 class Libros {
  private:

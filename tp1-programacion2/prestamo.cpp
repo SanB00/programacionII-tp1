@@ -61,14 +61,14 @@ void Prestamo::cargar() {
          << " esta eliminado. Cancelando prestamo..." << endl;
     return;
   }
-  cout << "Fecha Prestamo (1: Fecha manual, Calquier tecla para fecha del "
-          "dia): \n";
+  cout << "Fecha Prestamo (1: Fecha manual, 0: Fecha del dia): \n";
   int opcionFechaPrestamo = 0;
   cin.ignore();
   cin >> opcionFechaPrestamo;
   if (opcionFechaPrestamo == 1) {
     fechaPrestamo.cargarFechaManual();
   } else {
+    cout << "Fecha Prestamo: ";
     fechaPrestamo.cargarFechaDelDia();
   }
   cout << "\nFecha Devolucion: \n";
