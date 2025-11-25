@@ -121,7 +121,7 @@ void Prestamo::buscarPorId(int id) {
   }
   fclose(p);
 }
-void Prestamo::buscarPorIdSocioYMostrar(int id) {
+void buscarPorIdSocioYMostrar(int id) {
   bool comprobado = false;
   Prestamo prestamo;
   FILE* p = fopen("prestamos.dat", "rb");
@@ -349,7 +349,7 @@ void Prestamo::cantidadPrestamosPorSocio() {
   int cantidad = Prestamo::cantidadPrestamosPorSocioArchivo(idSocio);
   cout << "Cantidad de prestamos del socio con ID " << idSocio << ": "<<cantidad<< " prestamos\n";
 
-  //buscarPorIdSocio
+  buscarPorIdSocioYMostrar(idSocio);
 }
 
 
