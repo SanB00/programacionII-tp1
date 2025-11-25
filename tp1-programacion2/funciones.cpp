@@ -225,6 +225,7 @@ void menuInformes() {
     cout << "2. Libro mas prestado\n";
     cout << "3. Cantidad de prestamos por anio\n";
     cout << "4. Cantidad de prestamos por mes\n";
+    cout << "5. Cantidad de prestamos por Socio\n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
@@ -245,6 +246,11 @@ void menuInformes() {
       }
       case 4: {
         Prestamo::cantidadPrestamosPorAnioYMes();
+        break;
+      }
+      case 5: {
+        Prestamo::cantidadPrestamosPorSocio();
+        break;
       }
       case 0:
         cout << "Volviendo al menu principal...\n";

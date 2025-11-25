@@ -121,6 +121,22 @@ void Prestamo::buscarPorId(int id) {
   }
   fclose(p);
 }
+void Prestamo::buscarPorIdSocioYMostrar(int id) {
+  bool comprobado = false;
+  Prestamo prestamo;
+  FILE* p = fopen("prestamos.dat", "rb");
+  while (fread(&prestamo, sizeof(prestamo), 1, p)) {
+    if (prestamo.getIdSocio() == id) {
+      prestamo.mostrar();
+      comprobado = true;
+    }
+  }
+
+  if (comprobado == false) {
+    cout << "No existen registros con el id:" << id << endl;
+  }
+  fclose(p);
+}
 
 bool Prestamo::leer(int pos) {
   FILE* p = fopen("prestamos.dat", "rb");
@@ -310,3 +326,49 @@ void Prestamo::cantidadPrestamosPorAnioYMes() {
   cout << "Anio " << anio << " Mes " << mes << ": " << cantidad
        << " prestamos\n";
 }
+void Prestamo::cantidadPrestamosPorSocio() {
+    int idSocio = 0;
+    cout << "--- Informe de prestamos a un socio --- ";
+  cout << "\nID Socio: ";
+  cin >> idSocio;
+  cin.ignore();
+  cout << "Verificando existencia de socio..." << endl;
+  Socio aux, objSocio;
+  objSocio = aux.buscar(idSocio);
+  if (objSocio.getIdSocio() == ID_NO_ENCONTRADO) {
+    cout << "El socio con ID " << idSocio << " no existe..." << endl;
+    return;
+  }
+  if (objSocio.getEliminado()) {
+    cout << "El socio con ID " << idSocio
+         << " aparece como eliminado pero estos fueron sus prestamos: " << endl;
+  }
+
+  cout << endl << endl;
+
+  int cantidad = Prestamo::cantidadPrestamosPorSocioArchivo(idSocio);
+  cout << "Cantidad de prestamos del socio con ID " << idSocio << ": "<<cantidad<< " prestamos\n";
+
+  //buscarPorIdSocio
+}
+
+
+int Prestamo::cantidadPrestamosPorSocioArchivo(int idSocio) {
+  int contador = 0;
+  FILE* p = fopen("prestamos.dat", "rb");
+  if (p == NULL) {
+    cout << "No se pudo abrir el archivo de prestamos." << endl;
+    return 0;
+  }
+
+  Prestamo aux;
+  while (fread(&aux, sizeof(Prestamo), 1, p)) {
+    if (aux.getIdSocio() == idSocio) {
+      contador++;
+    }
+  }
+
+  fclose(p);
+  return contador;
+}
+///

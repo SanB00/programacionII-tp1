@@ -32,11 +32,14 @@ class Prestamo {
   bool guardar();
   bool leer(int pos);
   static void buscarPorId(int id);
+  static void buscarPorIdSocioYMostrar(int idSocio);
+  static int cantidadPrestamosPorSocioArchivo(int idSocio);
   static void buscarSocioConMasLibros();
   static void buscarLibroMasPrestado();
   static int cantidadPrestamosPorMes(int mes, int anio);
   static void cantidadPrestamosPorAnio();
   static void cantidadPrestamosPorAnioYMes();
+  static void cantidadPrestamosPorSocio();
 };
 
 #endif  // PRESTAMO_H
