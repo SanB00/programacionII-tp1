@@ -4,8 +4,12 @@
 #include <iostream>
 #include <limits>
 
+#include "Validaciones.cpp"
 #include "fecha.h"
+#include "libros.h"
 #include "socio.h"
+
+const int ID_NO_ENCONTRADO = -1;
 
 void Prestamo::cargar() {
   cout << "ID Socio: ";
@@ -13,15 +17,43 @@ void Prestamo::cargar() {
   cout << "Verificando existencia de socio..." << endl;
   Socio aux, objSocio;
   objSocio = aux.buscar(idSocio);
-  if (objSocio.getIdSocio() == Socio::ID_NO_ENCONTRADO) {
+  if (objSocio.getIdSocio() == ID_NO_ENCONTRADO) {
     cout << "El socio con ID " << idSocio
          << " no existe. Cancelando prestamo..." << endl;
     return;
   }
+  if (objSocio.getEliminado()) {
+    cout << "El socio con ID " << idSocio
+         << " esta eliminado. Cancelando prestamo..." << endl;
+    return;
+  }
+
   cout << "ID Libro: ";
   cin >> idLibro;
-  cout << "Fecha Prestamo: \n";
-  fechaPrestamo.cargarFechaDelDia();
+  cout << "Verificando existencia del libro..." << endl;
+  Libros auxLibro, objLibro;
+  objLibro = auxLibro.buscar(idLibro);
+  if (objLibro.getIdLibro() == ID_NO_ENCONTRADO) {
+    cout << "El libro con ID " << idLibro
+         << " no existe. Cancelando prestamo..." << endl;
+    return;
+  }
+  if (objLibro.getEliminado()) {
+    cout << "El libro con ID " << idLibro
+         << " esta eliminado. Cancelando prestamo..." << endl;
+    return;
+  }
+
+  cout << "Fecha Prestamo (1: Fecha manual, Calquier tecla para fecha del "
+          "dia): \n";
+  int opcionFechaPrestamo = 0;
+  cin.ignore();
+  cin >> opcionFechaPrestamo;
+  if (opcionFechaPrestamo == 1) {
+    fechaPrestamo.cargarFechaManual();
+  } else {
+    fechaPrestamo.cargarFechaDelDia();
+  }
   cout << "Fecha Devolucion: \n";
   fechaDevolucion.cargarFechaManual();
 }
@@ -239,7 +271,6 @@ void Prestamo::cantidadPrestamosPorAnio() {
 
 void Prestamo::cantidadPrestamosPorAnioYMes() {
   int anio = 0, mes = 0, dia = 1;
-  int totalPrestado = 0;
   cout << "Ingrese el anio para el informe: ";
   cin >> anio;
   cout << "Ingrese el mes para el informe: ";

@@ -69,6 +69,8 @@ void menuLibros() {
       case 4: {
         int id;
         cout << "Ingrese ID del libro a buscar: ";
+        cin >> id;
+        cin.ignore();
         Libros::buscarPorId(id);
         break;
       }

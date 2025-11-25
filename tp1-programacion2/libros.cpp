@@ -1,14 +1,17 @@
 #include "libros.h"
-#include "Validaciones.cpp"
 
 #include <cstdio>
 #include <cstring>
 #include <iostream>
 #include <limits>
 
+#include "Validaciones.cpp"
+
 using namespace std;
 
 int Libros::siguienteId = 1;
+const int ID_NO_ENCONTRADO = -1;
+/// char* NOMBRE_ARCHIVO = const_cast<char*>("libros.dat");
 
 void Libros::cargar() {
   cout << "\n *** Alta de un Libro *** \n";
@@ -19,7 +22,7 @@ void Libros::cargar() {
   cin.getline(autor, 30);
   cout << "Ingrese la editorial del libro: ";
   cin.getline(editorial, 30);
-  fechaalta.cargarFechaDelDia();
+  fechaAlta.cargarFechaDelDia();
   eliminado = false;
 }
 
@@ -28,7 +31,7 @@ void Libros::mostrar() const {
     cout << "ID: " << idLibro << " | Titulo: " << titulo
          << " | Autor: " << autor << " | Editorial: " << editorial
          << " | Fecha de alta ";
-    fechaalta.mostrar();
+    fechaAlta.mostrar();
     cout << endl;
   }
 }
@@ -134,7 +137,6 @@ void Libros::buscarPorAutor() {
 void Libros::buscarPorEditorial() {
   char editorialBuscada[30];
   cout << "Ingrese el nombre de la editorial a buscar: ";
-  cin.ignore();  // limpiar buffer antes de getline
   cargarCadena(editorialBuscada, 30);
   FILE* p = fopen("libros.dat", "rb");
   if (p == NULL) {
@@ -190,4 +192,23 @@ void Libros::buscarPorTitulo() {
   }
 
   fclose(p);
+}
+
+Libros Libros::buscar(int id) {
+  Libros aux, objEncontrado;
+  bool comprobado = false;
+  FILE* p = fopen("libros.dat", "rb");
+  while (fread(&aux, sizeof(Libros), 1, p)) {
+    if (aux.getIdLibro() == id) {
+      objEncontrado = aux;
+      objEncontrado.mostrar();
+      comprobado = true;
+    }
+  }
+  if (comprobado == false) {
+    cout << "No hay registro de libro con ID: " << id << endl;
+    objEncontrado.setIdLibro(ID_NO_ENCONTRADO);
+  }
+  fclose(p);
+  return objEncontrado;
 }
