@@ -31,8 +31,12 @@ int Libros::calcularMaximoId() {
 void Libros::cargar() {
   cout << "\n *** Alta de un Libro *** \n";
   this->cargarCamposModificables();
+  cout << "Fecha de alta: ";
   fechaAlta.cargarFechaDelDia();
   eliminado = false;
+
+  this->guardar();
+  // this->mostrar();
 }
 
 void Libros::cargarCamposModificables() {
@@ -43,32 +47,38 @@ void Libros::cargarCamposModificables() {
   cargarCadena(autor, 30);
   cout << "Ingrese la editorial del libro: ";
   cargarCadena(editorial, 30);
-  cout << "Ingrese el stock del libro: ";
-  do {
-    cin >> stock;
-    if (stock < 0) {
-      cout << "El stock no puede ser negativo. Intente nuevamente: ";
-    }
-  } while (stock < 0);
+  stock = 0;
+  // cout << "Ingrese el stock del libro: ";
+  // do {
+  //   cin >> stock;
+  //   if (stock < 0) {
+  //     cout << "El stock no puede ser negativo. Intente nuevamente: ";
+  //   }
+  // } while (stock < 0);
 }
 void Libros::mostrar() const {
   // if (!eliminado) {
   cout << "ID: " << idLibro << " | Titulo: " << titulo << " | Autor: " << autor
-       << " | Editorial: " << editorial << " | Stock: " << stock
-       << " | Fecha de alta ";
-  fechaAlta.mostrar();
-  cout << endl;
+       << " | Editorial: " << editorial
+       << " | Fecha de alta: " << fechaAlta.toString()
+       << " | Estado eliminado: " << eliminado << endl;
+
+  // cout << "ID: " << idLibro << " | Titulo: " << titulo << " | Autor: " <<
+  // autor
+  //      << " | Editorial: " << editorial << " | Stock: " << stock
+  //      << " | Fecha de alta ";
   //}
 }
 
 /// Archivo
 bool Libros::guardar() {
+  cout << "\nGuardando el registro de libro...";
   FILE* p = fopen("libros.dat", "ab");
   if (p == NULL) return false;
   fwrite(this, sizeof(Libros), 1, p);
   fclose(p);
 
-  cout << "Libro guardado con ID" << this->idLibro << ".\n";
+  cout << "\nLibro guardado con ID " << this->idLibro << ".\n";
 
   return true;
 }
@@ -130,9 +140,7 @@ void Libros::buscarPorId(int id) {
 void Libros::buscarPorAutor() {
   char autorBuscado[30];
   cout << "Ingrese el nombre del autor a buscar: ";
-
-  cin.ignore();
-  cin.getline(autorBuscado, 30);
+  cargarCadena(autorBuscado, 30);
 
   FILE* p = fopen("libros.dat", "rb");
   if (p == NULL) {
@@ -192,8 +200,7 @@ void Libros::buscarPorEditorial() {
 void Libros::buscarPorTitulo() {
   char tituloBuscado[50];
   cout << "Ingrese el titulo del libro a buscar: ";
-  cin.ignore();
-  cin.getline(tituloBuscado, 50);
+  cargarCadena(tituloBuscado, 50);
 
   FILE* p = fopen("libros.dat", "rb");
   if (p == NULL) {
@@ -300,6 +307,7 @@ void Libros::modificarRegistro() {
   // Mantener el mismo ID y la la fecha de alta original
   this->idLibro = idBuscado;
   this->fechaAlta = registroExistente.getFechaAlta();
+  this->eliminado = registroExistente.getEliminado();
   if (Libros::modificarRegistroEnArchivo(posicion, *this)) {
     cout << "Registro de libro modificado exitosamente." << endl;
   } else {

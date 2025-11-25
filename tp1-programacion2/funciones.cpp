@@ -34,7 +34,6 @@ void menuLibros() {
       case 1: {
         Libros obj;
         obj.cargar();
-        obj.guardar();
         break;
       }
 
@@ -112,7 +111,6 @@ void menuSocios() {
       case 1: {
         Socio obj;
         obj.cargar();
-        obj.guardar();
         break;
       }
       case 2: {
