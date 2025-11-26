@@ -4,5 +4,5 @@
 
 class Autor : public Persona {
  public:
-  Autor(string nombre, string apellido) : Persona(nombre, apellido) {}
+  Autor(char* nombre, char* apellido) : Persona(nombre, apellido) {}
 };
