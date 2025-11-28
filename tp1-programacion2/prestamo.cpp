@@ -29,6 +29,7 @@ int Prestamo::calcularMaximoId() {
   fclose(p);
   return ++maxId;
 }
+void buscarYMostrarLibroPrestado(int idLibro);
 void Prestamo::cargar() {
   cout << "--- Alta de un Prestamo --- \n";
   cout << "ID Socio: ";
@@ -49,21 +50,7 @@ void Prestamo::cargar() {
 
   cout << "ID Libro: ";
   cin >> idLibro;
-  cout << "Verificando existencia del libro..." << endl;
-  Libros auxLibro, objLibro;
-  objLibro = auxLibro.buscar(idLibro);
-  if (objLibro.getIdLibro() == ID_NO_ENCONTRADO) {
-    cout << "El libro con ID \"" << idLibro
-         << "\" no existe. "
-            "Cancelando prestamo..."
-         << endl;
-    return;
-  }
-  if (objLibro.getEliminado()) {
-    cout << "El libro con ID " << idLibro
-         << " esta eliminado. Cancelando prestamo..." << endl;
-    return;
-  }
+  buscarYMostrarLibroPrestado(idLibro);
   cout << "Fecha Prestamo (1: Fecha manual, 0: Fecha del dia): ";
   int opcionFechaPrestamo = 0;
   cin.ignore();

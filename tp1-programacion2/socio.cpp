@@ -80,6 +80,16 @@ bool Socio::leer(int pos) {
   return leyo;
 }
 
+void Socio::listar() {
+  int pos = 0;
+  while (leer(pos++)) {
+    mostrar();
+  }
+  if (pos == 1) {
+    cout << "No hay socios cargados.\n";
+  }
+}
+
 bool Socio::modificar(int pos) {
   FILE* p = fopen("socios.dat", "rb+");
   if (p == NULL) return false;
@@ -187,6 +197,23 @@ void Socio::modificarRegistro() {
   } else {
     cout << "Error al modificar el registro de socio." << endl;
   }
+}
+
+void Socio::buscarPorId(int id) {
+  bool comprobado = false;
+  Socio obj;
+  FILE* p = fopen(NOMBRE_ARCHIVO, "rb");
+  while (fread(&obj, sizeof(Socio), 1, p)) {
+    if (obj.getIdSocio() == id) {
+      obj.mostrar();
+      comprobado = true;
+    }
+  }
+
+  if (comprobado == false) {
+    cout << "No hay resultados para el ID ingresado: " << id << endl;
+  }
+  fclose(p);
 }
 
 Socio Socio::buscar(int id) {

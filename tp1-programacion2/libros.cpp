@@ -92,6 +92,16 @@ bool Libros::leer(int pos) {
   return leyo;
 }
 
+void Libros::listar() {
+  int pos = 0;
+  while (leer(pos++)) {
+    mostrar();
+  }
+  if (pos == 1) {
+    cout << "No hay libros cargados.\n";
+  }
+}
+
 bool Libros::modificar(int pos) {
   FILE* p = fopen("libros.dat", "rb+");
   if (p == NULL) return false;
