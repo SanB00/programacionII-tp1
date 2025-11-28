@@ -10,7 +10,8 @@ This is a project built on my second programming level using C++ classes and it'
 - Besides of CRUD we have the searching by ID or by a certain field such as book title.
 - The delete of a book or member record, is managed by a feature flag which will allow the recording of a lend
 - The lends could not be modified just hard deleted (The record is search on the file and skipped when resaving the binary file)
-  - PR #8 (https://github.com/SanB00/programacionII-tp1/pull/8)
+    - PR https://github.com/SanB00/programacionII-tp1/pull/8
+      
 - When a lend is being registered, we check the existance of both Libros and Socios
 - Dates can be before today's date, but the lend date (fechaPrestamo) can not be greater than the returning date (fechaDevolucion)
 - It has reports (Informes) for the sellest book, the member that asked more books historically, the quantity of books a member has and the number of books per month which was lent through a requested year.
