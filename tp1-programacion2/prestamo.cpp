@@ -226,7 +226,6 @@ void buscarPorIdSocioYMostrar(int id) {
   fclose(p);
 }
 
-
 void buscarYMostrarLibroPrestado(int idLibro) {
   Libros auxLibro, objLibro;
   objLibro = auxLibro.buscar(idLibro);
@@ -265,7 +264,6 @@ void Prestamo::listar() {
     cout << "No hay prestamos cargados.\n";
   }
 }
-
 
 ///
 ///
@@ -381,7 +379,9 @@ void Prestamo::buscarLibroMasPrestado() {
   }
 
   int idMax = ids[maxIdx];
-  cout << "Libro más prestado (" << cant[maxIdx] << " prestamos):" << endl;
+  cout << "Libro más prestado tiene el ID: " << idMax << " (" << cant[maxIdx]
+       << " prestamos):" << endl;
+  buscarYMostrarLibroPrestado(idMax);
 }
 ///
 ///
