@@ -82,7 +82,9 @@ void Prestamo::cargar() {
     } else {
       laFechaDevolucionEsAnteriorAlPrestamo = false;
     }
-  } while (laFechaDevolucionEsAnteriorAlPrestamo);this->guardar();
+  } while (laFechaDevolucionEsAnteriorAlPrestamo);
+
+  this->guardar();
 }
 
 void Prestamo::mostrar() const {
@@ -94,13 +96,13 @@ void Prestamo::mostrar() const {
   cout << endl;
 }
 
-
 bool Prestamo::guardar() {
+  cout << "Guardado Prestamo en archivo...\n";
   FILE* p = fopen("prestamos.dat", "ab");
   if (p == NULL) return false;
   fwrite(this, sizeof(Prestamo), 1, p);
-  cout << "Prestamo guardado con exito.\n";
   fclose(p);
+  cout << "Prestamo guardado con exito! ID: " << this->idPrestamo << ".\n";
   this->mostrar();
   return true;
 }
@@ -121,11 +123,93 @@ void Prestamo::buscarPorId(int id) {
   }
   fclose(p);
 }
+Prestamo Prestamo::buscar(int id) {
+  Prestamo aux, objEncontrado;
+  bool comprobado = false;
+  FILE* p = fopen("prestamos.dat", "rb");
+  while (fread(&aux, sizeof(Prestamo), 1, p)) {
+    if (aux.getIdPrestamo() == id) {
+      objEncontrado = aux;
+      // objEncontrado.mostrar();
+      comprobado = true;
+    }
+  }
+  if (comprobado == false) {
+    cout << "No existe el registro de prestamos con ID: " << id << endl;
+    objEncontrado.setIdPrestamo(ID_NO_ENCONTRADO);
+  }
+  fclose(p);
+  return objEncontrado;
+}
+bool grabarRegistroEnArchivo(Prestamo obj, const char* nombreArchivo = "") {
+  FILE* p = fopen(nombreArchivo, "ab");
+  if (p == nullptr) {
+    return false;
+  }
+  bool escribio = fwrite(&obj, sizeof obj, 1, p);
+  fclose(p);
+  return escribio;
+}
+void Prestamo::bajaFisica() {
+  cout << "ADVERTENCIA: El registro del prestamo que seleccione se eliminara "
+          "permanentemente \n¿Desea continuar? (1=SI, 0=NO): ";
+  int confirmaEliminacion;
+  cin >> confirmaEliminacion;
+
+  if (confirmaEliminacion == 0) {
+    cout << "Se cancela la eliminacion. Volviendo al menu..." << endl;
+    return;
+  }
+
+  cout << "Ingrese el ID del registro de prestamo que desea eliminar "
+          "permanentemente: ";
+  int idPrestamoAEliminar;
+  cin >> idPrestamoAEliminar;
+  Prestamo objEncontrado = buscar(idPrestamoAEliminar);
+  if (objEncontrado.getIdPrestamo() == ID_NO_ENCONTRADO) {
+    cout << "El prestamo con ID " << idPrestamoAEliminar << " no existe..."
+         << endl;
+    return;
+  }
+
+  cout << "ELIMINANDO registro con ID: " << idPrestamoAEliminar << endl;
+  objEncontrado.mostrar();
+  // Creando archivo temporal sin el registro a eliminar
+  bool huboErrores = false;
+  Prestamo objArchivoOriginal;
+  FILE* p = fopen("prestamos.dat", "rb");
+  int registrosLeidos, registrosGuardados = 0;
+  while (fread(&objArchivoOriginal, sizeof(Prestamo), 1, p)) {
+    registrosLeidos++;
+    if (objArchivoOriginal.getIdPrestamo() != idPrestamoAEliminar) {
+      if (grabarRegistroEnArchivo(objArchivoOriginal, "temp.dat")) {
+        registrosGuardados++;
+      } else {
+        cout << "Error al copiar el registro con ID: "
+             << objArchivoOriginal.getIdPrestamo() << endl;
+        huboErrores = true;
+      }
+    }
+  }
+  fclose(p);
+  cout << "INFO: Registros leidos: " << registrosLeidos
+       << " | Registros guardados: " << registrosGuardados << endl;
+  if (huboErrores) {
+    cout << "No se completo la eliminacion debido a errores." << endl;
+    remove("temp.dat");
+    return;
+  }
+  // Reemplazar archivo original
+  remove("prestamos.dat");
+  rename("temp.dat", "prestamos.dat");
+  cout << "Se elimino el registro de prestamo con id: " << idPrestamo << endl;
+}
+
 void buscarPorIdSocioYMostrar(int id) {
   bool comprobado = false;
   Prestamo prestamo;
   FILE* p = fopen("prestamos.dat", "rb");
-  while (fread(&prestamo, sizeof(prestamo), 1, p)) {
+  while (fread(&prestamo, sizeof(Prestamo), 1, p)) {
     if (prestamo.getIdSocio() == id) {
       prestamo.mostrar();
       comprobado = true;
@@ -327,8 +411,8 @@ void Prestamo::cantidadPrestamosPorAnioYMes() {
        << " prestamos\n";
 }
 void Prestamo::cantidadPrestamosPorSocio() {
-    int idSocio = 0;
-    cout << "--- Informe de prestamos a un socio --- ";
+  int idSocio = 0;
+  cout << "--- Informe de prestamos a un socio --- ";
   cout << "\nID Socio: ";
   cin >> idSocio;
   cin.ignore();
@@ -347,11 +431,11 @@ void Prestamo::cantidadPrestamosPorSocio() {
   cout << endl << endl;
 
   int cantidad = Prestamo::cantidadPrestamosPorSocioArchivo(idSocio);
-  cout << "Cantidad de prestamos del socio con ID " << idSocio << ": "<<cantidad<< " prestamos\n";
+  cout << "Cantidad de prestamos del socio con ID " << idSocio << ": "
+       << cantidad << " prestamos\n";
 
   buscarPorIdSocioYMostrar(idSocio);
 }
-
 
 int Prestamo::cantidadPrestamosPorSocioArchivo(int idSocio) {
   int contador = 0;

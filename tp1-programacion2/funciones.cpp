@@ -171,6 +171,7 @@ void menuPrestamos() {
     cout << "1. Alta\n";
     cout << "2. Listar\n";
     cout << "3. Buscar \n";
+    cout << "4. Eliminar prestamo (Baja Fisica) \n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
@@ -182,7 +183,6 @@ void menuPrestamos() {
         obj.cargar();
         break;
       }
-
       case 2: {
         Prestamo obj;
         int pos = 0;
@@ -194,13 +194,17 @@ void menuPrestamos() {
         }
         break;
       }
-
       case 3: {
         int id;
         Prestamo obj;
         cout << "ingrese id del prestamo" << endl;
         cin >> id;
         obj.buscarPorId(id);
+        break;
+      }
+      case 4: {
+        Prestamo obj;
+        obj.bajaFisica();
         break;
       }
 

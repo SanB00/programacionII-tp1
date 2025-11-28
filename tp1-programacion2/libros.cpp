@@ -360,8 +360,8 @@ void Libros::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
   *this = libroExistente;
   this->eliminado = !estadoEsperado;
   if (Libros::modificarRegistroEnArchivo(posicion, *this)) {
-    cout << "Se pudo " << mensajeAccion
-         << " el registro exitosamente. Nuevo estado" << endl;
+    cout << "\nSe pudo " << mensajeAccion
+         << " el registro exitosamente. Nuevo estado: " << endl;
     this->mostrar();
   } else {
     cout << "Error al " << mensajeAccion << " el registro de libro." << endl;

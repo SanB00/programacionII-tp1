@@ -33,7 +33,7 @@ void Socio::cargar() {
   cout << "Fecha de alta del socio: ";
   fechaAlta.cargarFechaDelDia();
   eliminado = false;
-
+  cout << endl;
   this->guardar();
 }
 
@@ -62,10 +62,12 @@ void Socio::mostrar() const {
 
 /// Archivo
 bool Socio::guardar() {
+  cout << "\nGuardando el registro de Socio...";
   FILE* p = fopen("socios.dat", "ab");
   if (p == NULL) return false;
   fwrite(this, sizeof(Socio), 1, p);
   fclose(p);
+  cout << "\nSocio guardado con exito! ID: " << this->idSocio << ".\n";
   return true;
 }
 
@@ -232,8 +234,8 @@ void Socio::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
   *this = socioExistente;
   this->eliminado = !estadoEsperado;
   if (Socio::modificarRegistroEnArchivo(posicion, *this)) {
-    cout << "Se pudo " << mensajeAccion
-         << " el registro exitosamente. Nuevo estado" << endl;
+    cout << "\nSe pudo " << mensajeAccion
+         << " el registro exitosamente. Nuevo estado: " << endl;
     this->mostrar();
   } else {
     cout << "Error al " << mensajeAccion << " el registro de socio." << endl;
