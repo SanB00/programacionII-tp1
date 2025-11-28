@@ -92,6 +92,18 @@ bool Libros::leer(int pos) {
   return leyo;
 }
 
+void Libros::listar() {
+  cout << "\n--- LISTADO ---\n\n";
+  int pos = 0;
+  while (leer(pos++)) {
+    mostrar();
+  }
+  if (pos == 1) {
+    cout << "No hay libros cargados.\n";
+  }
+  cout << "\n--- " << pos - 1 << " registros ---\n\n";
+}
+
 bool Libros::modificar(int pos) {
   FILE* p = fopen("libros.dat", "rb+");
   if (p == NULL) return false;
@@ -127,7 +139,6 @@ void Libros::buscarPorId(int id) {
     if (libro.getIdLibro() == id) {
       libro.mostrar();
       comprobado = true;
-      ;
     }
   }
 
@@ -294,7 +305,6 @@ void Libros::modificarRegistro() {
   int idBuscado = 0;
   cout << "Ingrese ID del libro a modificar: ";
   cin >> idBuscado;
-  cin.ignore();
   int posicion = Libros::buscarPosicionDeRegistro(idBuscado);
   if (posicion < 0) {
     cout << "El libro con ID " << idBuscado << " no existe." << endl;
@@ -360,8 +370,8 @@ void Libros::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
   *this = libroExistente;
   this->eliminado = !estadoEsperado;
   if (Libros::modificarRegistroEnArchivo(posicion, *this)) {
-    cout << "Se pudo " << mensajeAccion
-         << " el registro exitosamente. Nuevo estado" << endl;
+    cout << "\nSe pudo " << mensajeAccion
+         << " el registro exitosamente. Nuevo estado: " << endl;
     this->mostrar();
   } else {
     cout << "Error al " << mensajeAccion << " el registro de libro." << endl;

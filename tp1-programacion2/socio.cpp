@@ -33,7 +33,7 @@ void Socio::cargar() {
   cout << "Fecha de alta del socio: ";
   fechaAlta.cargarFechaDelDia();
   eliminado = false;
-
+  cout << endl;
   this->guardar();
 }
 
@@ -62,10 +62,12 @@ void Socio::mostrar() const {
 
 /// Archivo
 bool Socio::guardar() {
+  cout << "\nGuardando el registro de Socio...";
   FILE* p = fopen("socios.dat", "ab");
   if (p == NULL) return false;
   fwrite(this, sizeof(Socio), 1, p);
   fclose(p);
+  cout << "\nSocio guardado con exito! ID: " << this->idSocio << ".\n";
   return true;
 }
 
@@ -76,6 +78,18 @@ bool Socio::leer(int pos) {
   bool leyo = fread(this, sizeof(Socio), 1, p);
   fclose(p);
   return leyo;
+}
+
+void Socio::listar() {
+  cout << "\n--- LISTADO ---\n\n";
+  int pos = 0;
+  while (leer(pos++)) {
+    mostrar();
+  }
+  if (pos == 1) {
+    cout << "No hay socios cargados.\n";
+  }
+  cout << "\n--- " << pos - 1 << " registros ---\n\n";
 }
 
 bool Socio::modificar(int pos) {
@@ -187,6 +201,23 @@ void Socio::modificarRegistro() {
   }
 }
 
+void Socio::buscarPorId(int id) {
+  bool comprobado = false;
+  Socio obj;
+  FILE* p = fopen(NOMBRE_ARCHIVO, "rb");
+  while (fread(&obj, sizeof(Socio), 1, p)) {
+    if (obj.getIdSocio() == id) {
+      obj.mostrar();
+      comprobado = true;
+    }
+  }
+
+  if (comprobado == false) {
+    cout << "No hay resultados para el ID ingresado: " << id << endl;
+  }
+  fclose(p);
+}
+
 Socio Socio::buscar(int id) {
   Socio aux, objEncontrado;
   bool comprobado = false;
@@ -199,7 +230,7 @@ Socio Socio::buscar(int id) {
     }
   }
   if (comprobado == false) {
-    cout << "No existe registros de socio con ID: " << id << endl;
+    cout << "No existe registro de socio con ID: " << id << endl;
     objEncontrado.setIdSocio(ID_NO_ENCONTRADO);
   }
   fclose(p);
@@ -232,8 +263,8 @@ void Socio::asignarEstadoDeRegistroComoActivo(bool estadoEsperado) {
   *this = socioExistente;
   this->eliminado = !estadoEsperado;
   if (Socio::modificarRegistroEnArchivo(posicion, *this)) {
-    cout << "Se pudo " << mensajeAccion
-         << " el registro exitosamente. Nuevo estado" << endl;
+    cout << "\nSe pudo " << mensajeAccion
+         << " el registro exitosamente. Nuevo estado: " << endl;
     this->mostrar();
   } else {
     cout << "Error al " << mensajeAccion << " el registro de socio." << endl;

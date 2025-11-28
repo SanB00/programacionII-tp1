@@ -29,33 +29,21 @@ void menuLibros() {
     cin.ignore();
     system("cls");
     switch (opcionSeleccionada) {
-      default:
-        cout << "Opcion invalida. Intente nuevamente.\n";
-        break;
       case 1: {
         Libros obj;
         obj.cargar();
         break;
       }
-
       case 2: {
         Libros obj;
-        int pos = 0;
-        while (obj.leer(pos++)) {
-          obj.mostrar();
-        }
-        if (pos == 1) {
-          cout << "No hay libros cargados.\n";
-        }
+        obj.listar();
         break;
       }
       case 3: {
-        int id;
+        int id = 0;
         cout << "Ingrese ID libro a buscar: ";
         cin >> id;
-        cin.ignore();
-        Libros obj;
-        obj.buscar(id);
+        Libros::buscarPorId(id);
         break;
       }
       case 4: {
@@ -85,10 +73,12 @@ void menuLibros() {
         Libros::buscarPorEditorial();
         break;
       }
-
       case 0:
         cout << "Volviendo al menu principal...\n";
         return;
+        break;
+      default:
+        cout << "Opcion invalida. Intente nuevamente.\n";
         break;
     }
     system("pause");
@@ -119,21 +109,14 @@ void menuSocios() {
       }
       case 2: {
         Socio obj;
-        int pos = 0;
-        while (obj.leer(pos++)) {
-          obj.mostrar();
-        }
-        if (pos == 1) {
-          cout << "No hay socios cargados.\n";
-        }
+        obj.listar();
         break;
       }
       case 3: {
         int id;
         cout << "Ingrese ID del socio a buscar: ";
         cin >> id;
-        Socio obj;
-        obj.buscar(id);
+        Socio::buscarPorId(id);
         break;
       }
       case 4: {
@@ -171,6 +154,7 @@ void menuPrestamos() {
     cout << "1. Alta\n";
     cout << "2. Listar\n";
     cout << "3. Buscar \n";
+    cout << "4. Eliminar prestamo (Baja Fisica) \n";
     cout << "0. Volver\n";
     cout << "Opcion: ";
     cin >> opcionSeleccionada;
@@ -182,25 +166,21 @@ void menuPrestamos() {
         obj.cargar();
         break;
       }
-
       case 2: {
         Prestamo obj;
-        int pos = 0;
-        while (obj.leer(pos++)) {
-          obj.mostrar();
-        }
-        if (pos == 1) {
-          cout << "No hay prestamos cargados.\n";
-        }
+        obj.listar();
         break;
       }
-
       case 3: {
         int id;
-        Prestamo obj;
-        cout << "ingrese id del prestamo" << endl;
+        cout << "Ingrese ID del prestamo a buscar: " << endl;
         cin >> id;
-        obj.buscarPorId(id);
+        Prestamo::buscarPorId(id);
+        break;
+      }
+      case 4: {
+        Prestamo obj;
+        obj.bajaFisica();
         break;
       }
 
@@ -285,7 +265,7 @@ void generarArchivosNecesariosConDatosFicticios() {
             const_cast<char*>("2222222"), const_cast<char*>("Calle Hola 123"),
             const_cast<char*>("hola@gmail.com"), fechaAlta);
   obj2.guardar();
-  Socio obj3 = Socio(const_cast<char*>("Tomas"), const_cast<char*>("Mazza"),
+  Socio obj3 = Socio(const_cast<char*>("Tomas"), const_cast<char*>("M"),
                      const_cast<char*>("3333333"),
                      const_cast<char*>("Calle Estudio 2043"),
                      const_cast<char*>("estudio@gmail.com"), fechaAlta);

@@ -28,11 +28,15 @@ class Prestamo {
   int getIdSocio() const { return idSocio; }
   int getIdLibro() const { return idLibro; }
 
+  void setIdPrestamo(int id) { idPrestamo = id; }
   /// Manejo de archivo
   bool guardar();
   bool leer(int pos);
+  void listar();
+  Prestamo buscar(int id);
   static void buscarPorId(int id);
-  //void buscarPorIdSocioYMostrar(int idSocio);
+  void bajaFisica();
+  // void buscarPorIdSocioYMostrar(int idSocio);
   static int cantidadPrestamosPorSocioArchivo(int idSocio);
   static void buscarSocioConMasLibros();
   static void buscarLibroMasPrestado();

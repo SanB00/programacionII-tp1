@@ -14,8 +14,12 @@ class Socio : public Persona {
 
  public:
   const static int ID_NO_ENCONTRADO = -1;
-  Socio() : Persona(const_cast<char*>(""), const_cast<char*>("")), idSocio(siguienteId++), eliminado(false) {
-    // Inicializar arrays de char vacios o con valores por defecto si es necesario
+  Socio()
+      : Persona(const_cast<char*>(""), const_cast<char*>("")),
+        idSocio(siguienteId++),
+        eliminado(false) {
+    // Inicializar arrays de char vacios o con valores por defecto si es
+    // necesario
     telefono[0] = '\0';
     direccion[0] = '\0';
     correo[0] = '\0';
@@ -37,11 +41,13 @@ class Socio : public Persona {
     eliminado = false;
   }
   static int calcularMaximoId();
+  static void buscarPorId(int id);
   int getIdSocio() const { return idSocio; }
   void setIdSocio(int id) { idSocio = id; }
   bool getEliminado() const { return eliminado; }
   void setEliminado(bool e) { eliminado = e; }
 
+  void listar();
   void cargar();
   void mostrar() const;
   Socio buscar(int id);
