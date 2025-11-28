@@ -185,13 +185,7 @@ void menuPrestamos() {
       }
       case 2: {
         Prestamo obj;
-        int pos = 0;
-        while (obj.leer(pos++)) {
-          obj.mostrar();
-        }
-        if (pos == 1) {
-          cout << "No hay prestamos cargados.\n";
-        }
+        obj.listar();
         break;
       }
       case 3: {

@@ -64,14 +64,14 @@ void Prestamo::cargar() {
          << " esta eliminado. Cancelando prestamo..." << endl;
     return;
   }
-  cout << "Fecha Prestamo (1: Fecha manual, 0: Fecha del dia): \n";
+  cout << "Fecha Prestamo (1: Fecha manual, 0: Fecha del dia): ";
   int opcionFechaPrestamo = 0;
   cin.ignore();
   cin >> opcionFechaPrestamo;
   if (opcionFechaPrestamo == 1) {
     fechaPrestamo.cargarFechaManual();
   } else {
-    cout << "Fecha Prestamo: ";
+    cout << "\nFecha Prestamo: ";
     fechaPrestamo.cargarFechaDelDia();
   }
   cout << "\nFecha Devolucion: \n";
@@ -226,6 +226,24 @@ void buscarPorIdSocioYMostrar(int id) {
   fclose(p);
 }
 
+
+void buscarYMostrarLibroPrestado(int idLibro) {
+  Libros auxLibro, objLibro;
+  objLibro = auxLibro.buscar(idLibro);
+  if (objLibro.getIdLibro() == ID_NO_ENCONTRADO) {
+    cout << "El libro con ID \"" << idLibro
+         << "\" no existe. "
+            "Cancelando prestamo..."
+         << endl;
+    return;
+  }
+  if (objLibro.getEliminado()) {
+    cout << "El libro con ID " << idLibro
+         << " esta eliminado. Cancelando prestamo..." << endl;
+    return;
+  }
+}
+
 bool Prestamo::leer(int pos) {
   FILE* p = fopen("prestamos.dat", "rb");
   if (p == NULL) return false;
@@ -234,6 +252,21 @@ bool Prestamo::leer(int pos) {
   fclose(p);
   return leyo;
 }
+
+void Prestamo::listar() {
+  Prestamo obj;
+  int pos = 0;
+  while (this->leer(pos++)) {
+    this->mostrar();
+    buscarYMostrarLibroPrestado(this->getIdLibro());
+    cout << "-----------------------------------\n";
+  }
+  if (pos == 1) {
+    cout << "No hay prestamos cargados.\n";
+  }
+}
+
+
 ///
 ///
 ///

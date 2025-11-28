@@ -32,6 +32,7 @@ class Prestamo {
   /// Manejo de archivo
   bool guardar();
   bool leer(int pos);
+  void listar();
   Prestamo buscar(int id);
   static void buscarPorId(int id);
   void bajaFisica();
