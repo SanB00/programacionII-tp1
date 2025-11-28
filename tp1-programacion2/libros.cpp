@@ -93,6 +93,7 @@ bool Libros::leer(int pos) {
 }
 
 void Libros::listar() {
+  cout << "\n--- LISTADO ---\n\n";
   int pos = 0;
   while (leer(pos++)) {
     mostrar();
@@ -100,6 +101,7 @@ void Libros::listar() {
   if (pos == 1) {
     cout << "No hay libros cargados.\n";
   }
+  cout << "\n--- " << pos - 1 << " registros ---\n\n";
 }
 
 bool Libros::modificar(int pos) {
@@ -137,7 +139,6 @@ void Libros::buscarPorId(int id) {
     if (libro.getIdLibro() == id) {
       libro.mostrar();
       comprobado = true;
-      ;
     }
   }
 

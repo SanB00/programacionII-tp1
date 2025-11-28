@@ -240,6 +240,7 @@ bool Prestamo::leer(int pos) {
 }
 
 void Prestamo::listar() {
+  cout << "\n--- LISTADO ---\n\n";
   Prestamo obj;
   int pos = 0;
   while (this->leer(pos++)) {
@@ -250,6 +251,7 @@ void Prestamo::listar() {
   if (pos == 1) {
     cout << "No hay prestamos cargados.\n";
   }
+  cout << "\n--- " << pos - 1 << " registros ---\n\n";
 }
 
 ///

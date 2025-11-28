@@ -81,6 +81,7 @@ bool Socio::leer(int pos) {
 }
 
 void Socio::listar() {
+  cout << "\n--- LISTADO ---\n\n";
   int pos = 0;
   while (leer(pos++)) {
     mostrar();
@@ -88,6 +89,7 @@ void Socio::listar() {
   if (pos == 1) {
     cout << "No hay socios cargados.\n";
   }
+  cout << "\n--- " << pos - 1 << " registros ---\n\n";
 }
 
 bool Socio::modificar(int pos) {
