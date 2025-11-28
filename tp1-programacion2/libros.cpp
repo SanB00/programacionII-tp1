@@ -294,7 +294,6 @@ void Libros::modificarRegistro() {
   int idBuscado = 0;
   cout << "Ingrese ID del libro a modificar: ";
   cin >> idBuscado;
-  cin.ignore();
   int posicion = Libros::buscarPosicionDeRegistro(idBuscado);
   if (posicion < 0) {
     cout << "El libro con ID " << idBuscado << " no existe." << endl;

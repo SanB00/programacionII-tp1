@@ -27,7 +27,7 @@ void Fecha::cargarFechaManual() {
   cout << "Anio: ";
   cin >> anio;
   if (esUnaFechaValida()) {
-    cout << "Fecha ingresada correctamente.\n";
+    // cout << "Fecha ingresada correctamente.\n";
   } else {
     cout << "Fecha invalida. Por favor, ingrese una fecha valida.\n";
     cargarFechaManual();

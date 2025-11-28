@@ -201,7 +201,7 @@ Socio Socio::buscar(int id) {
     }
   }
   if (comprobado == false) {
-    cout << "No existe registros de socio con ID: " << id << endl;
+    cout << "No existe registro de socio con ID: " << id << endl;
     objEncontrado.setIdSocio(ID_NO_ENCONTRADO);
   }
   fclose(p);

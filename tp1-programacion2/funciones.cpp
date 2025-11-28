@@ -197,7 +197,7 @@ void menuPrestamos() {
       case 3: {
         int id;
         Prestamo obj;
-        cout << "ingrese id del prestamo" << endl;
+        cout << "Ingrese ID del prestamo a buscar: " << endl;
         cin >> id;
         obj.buscarPorId(id);
         break;

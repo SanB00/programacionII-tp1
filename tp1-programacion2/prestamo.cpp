@@ -30,14 +30,15 @@ int Prestamo::calcularMaximoId() {
   return ++maxId;
 }
 void Prestamo::cargar() {
+  cout << "--- Alta de un Prestamo --- \n";
   cout << "ID Socio: ";
   cin >> idSocio;
   cout << "Verificando existencia de socio..." << endl;
   Socio aux, objSocio;
   objSocio = aux.buscar(idSocio);
   if (objSocio.getIdSocio() == ID_NO_ENCONTRADO) {
-    cout << "El socio con ID " << idSocio
-         << " no existe. Cancelando prestamo..." << endl;
+    cout << "El socio con ID \"" << idSocio
+         << "\" no existe. Cancelando prestamo..." << endl;
     return;
   }
   if (objSocio.getEliminado()) {
@@ -52,8 +53,10 @@ void Prestamo::cargar() {
   Libros auxLibro, objLibro;
   objLibro = auxLibro.buscar(idLibro);
   if (objLibro.getIdLibro() == ID_NO_ENCONTRADO) {
-    cout << "El libro con ID " << idLibro
-         << " no existe. Cancelando prestamo..." << endl;
+    cout << "El libro con ID \"" << idLibro
+         << "\" no existe. "
+            "Cancelando prestamo..."
+         << endl;
     return;
   }
   if (objLibro.getEliminado()) {
@@ -97,7 +100,7 @@ void Prestamo::mostrar() const {
 }
 
 bool Prestamo::guardar() {
-  cout << "Guardado Prestamo en archivo...\n";
+  cout << "\nGuardado Prestamo en archivo...\n";
   FILE* p = fopen("prestamos.dat", "ab");
   if (p == NULL) return false;
   fwrite(this, sizeof(Prestamo), 1, p);
@@ -119,7 +122,7 @@ void Prestamo::buscarPorId(int id) {
   }
 
   if (comprobado == false) {
-    cout << "No existen registros con el id:" << id << endl;
+    cout << "No existen registros con el ID: " << id << endl;
   }
   fclose(p);
 }
@@ -151,8 +154,9 @@ bool grabarRegistroEnArchivo(Prestamo obj, const char* nombreArchivo = "") {
   return escribio;
 }
 void Prestamo::bajaFisica() {
-  cout << "ADVERTENCIA: El registro del prestamo que seleccione se eliminara "
-          "permanentemente \n¿Desea continuar? (1=SI, 0=NO): ";
+  cout << "ATENCION: Si tuvo un error registrando un prestamo puede eliminarlo "
+          "aunque tenga en cuenta que es permanentemente"
+          "\nDesea continuar? (1 = SI, 0 = NO): ";
   int confirmaEliminacion;
   cin >> confirmaEliminacion;
 
@@ -161,8 +165,8 @@ void Prestamo::bajaFisica() {
     return;
   }
 
-  cout << "Ingrese el ID del registro de prestamo que desea eliminar "
-          "permanentemente: ";
+  cout << "Ingrese el ID del registro de prestamo que desea ELIMINAR "
+          "PERMANENTEMENTE (o un ID inexistente para volver al menu): ";
   int idPrestamoAEliminar;
   cin >> idPrestamoAEliminar;
   Prestamo objEncontrado = buscar(idPrestamoAEliminar);
@@ -172,7 +176,7 @@ void Prestamo::bajaFisica() {
     return;
   }
 
-  cout << "ELIMINANDO registro con ID: " << idPrestamoAEliminar << endl;
+  cout << "Eliminando registro con ID: " << idPrestamoAEliminar << endl;
   objEncontrado.mostrar();
   // Creando archivo temporal sin el registro a eliminar
   bool huboErrores = false;
@@ -192,7 +196,7 @@ void Prestamo::bajaFisica() {
     }
   }
   fclose(p);
-  cout << "INFO: Registros leidos: " << registrosLeidos
+  cout << "\nINFO: Registros leidos: " << registrosLeidos - 1
        << " | Registros guardados: " << registrosGuardados << endl;
   if (huboErrores) {
     cout << "No se completo la eliminacion debido a errores." << endl;
@@ -202,7 +206,7 @@ void Prestamo::bajaFisica() {
   // Reemplazar archivo original
   remove("prestamos.dat");
   rename("temp.dat", "prestamos.dat");
-  cout << "Se elimino el registro de prestamo con id: " << idPrestamo << endl;
+  cout << "Se elimino con exito el prestamo con id: " << idPrestamo << endl;
 }
 
 void buscarPorIdSocioYMostrar(int id) {
@@ -217,7 +221,7 @@ void buscarPorIdSocioYMostrar(int id) {
   }
 
   if (comprobado == false) {
-    cout << "No existen registros con el id:" << id << endl;
+    cout << "No existen registros con el ID:" << id << endl;
   }
   fclose(p);
 }
